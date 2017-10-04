@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace ShauliBlog.Controllers
 {
+    /// <summary>
+    ///  
+    /// </summary>
     public class PostController : Controller
     {
         private BlogDBContext db = new BlogDBContext();        
