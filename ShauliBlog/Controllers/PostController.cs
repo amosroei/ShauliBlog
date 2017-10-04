@@ -204,12 +204,13 @@ namespace ShauliBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post singer = db.Post.Find(id);
-            if (singer == null)
+            Post post = db.Post.Find(id);
+            
+            if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(singer);
+            return View(post);
         }
 
         //
@@ -219,13 +220,13 @@ namespace ShauliBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            bool isAdmin = (Boolean)Session["isAmdin"];
+            bool isAdmin = (Boolean)((ShauliBlog.Models.Account)Session["user"]).IsAdmin;
             if (!isAdmin)
             {
                 return RedirectToAction("Index");
             }
-            Post singer = db.Post.Find(id);
-            db.Post.Remove(singer);
+            Post post = db.Post.Find(id);
+            db.Post.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

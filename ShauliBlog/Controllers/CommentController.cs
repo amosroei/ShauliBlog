@@ -21,7 +21,7 @@ namespace ShauliBlog.Controllers
         public void Delete(long id = 0)
         {
             Comment Comment = db.Comment.Find(id);
-            if (Comment != null)
+            if ((((ShauliBlog.Models.Account)Session["user"]).IsAdmin) &&(Comment != null))
             {
                 db.Comment.Remove(Comment);
                 db.SaveChanges();

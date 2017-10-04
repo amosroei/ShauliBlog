@@ -18,11 +18,14 @@
         <h1>Ha-Blog Shel Shauli</h1>
         @if (Session["UserName"] != null)
         {
-            string uName = @Session["UserName"].ToString();
-            <h4>Hello @Html.ActionLink(uName, "Details", "Account", new { id = Session["UserID"] }, null)</h4>
             if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
             {
                 <h4> Admin</h4>
+            }
+            else
+            {
+                string uName = @Session["UserName"].ToString();
+                <h4>Hello @Html.ActionLink(uName, "Details", "Account", new { id = Session["UserID"] }, null)</h4>
             }
             @Html.ActionLink("LogOut", "LogOut", "Account");
 
