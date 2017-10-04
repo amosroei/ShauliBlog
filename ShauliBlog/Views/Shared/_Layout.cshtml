@@ -3,20 +3,35 @@
 <head>
     <title>Browser Page title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/mycss.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/mycss.css" type="text/css" media="screen" />    
 </head>
 
 <body>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/weather.js"></script>
+
     <audio autoplay="">
         <source src="assets\audio\sound.mp3">
     </audio>
 
     <header id="siteHeader">
         <h1>Ha-Blog Shel Shauli</h1>
+        @if (Session["UserName"] != null)
+        {
+            string uName = @Session["UserName"].ToString();
+            <h4>Hello @Html.ActionLink(uName, "Details", "Account", new { id = Session["UserID"] }, null)</h4>
+            if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+            {
+                <h4> Admin</h4>
+            }
+            @Html.ActionLink("LogOut", "LogOut", "Account");
+
+        }
     </header>
     <nav class="grad">
         <!-- Navigation -->
         <ul id="transDemo2">
+            @*<li>@Html.ActionLink("LogIn", "Login", "Account")</li>*@
             <li>@Html.ActionLink("Blog", "Index", "Home")</li>
             <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
             @*<li>@Html.ActionLink("Posts", "Index", "Post")</li>*@
@@ -49,24 +64,70 @@
         <aside>
             <section>
                 <header>
-                    <h3>Categories</h3>
+                    <h3><button id="weatherBtn"class="btn btn-primary">Get Weather</button></h3>
                 </header>
                 <ul>
-                    <li><a href="#">Lorem ipsum dolor</a></li>
-                    <li><a href="#">Sit amet consectetur</a></li>
-                    <li><a href="#">Adipisicing elit sed</a></li>
-                </ul>
-            </section>
-            <section>
-                <header>
-                    <h3>Archives</h3>
-                </header>
-                <ul>
-                    <li><a href="#">December 2008</a></li>
-                    <li><a href="#">January 2009</a></li>
-                    <li><a href="#">February 2009</a></li>
-                    <li><a href="#">March 2009</a></li>
-                </ul>
+                    <li>
+                        <script>
+                            var appid = "2e9a3b3f3b7a98e0442e3a85875a2481";
+                            $(document).ready(function () {
+                                $("#weatherBtn").click(function () {
+                                    $.get("http://api.openweathermap.org/data/2.5/weather?q=TelAviv&units=metric&APPID=" + appid + "&units=imperial", function (response) {
+                                        //response
+                                        console.log(response);
+                                        $("#name").text(response.name);
+                                        $("#temp").text(response.main.temp);
+                                        $("#humidity").text(response.main.humidity);
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </li >
+                </ul >
+            </section >
+                            <section>
+                                <header>
+                                    <h3>Archives</h3>
+                                </header>
+                                <ul>
+                                    <li><a href="#">December 2008</a></li>
+                                    <li><a href="#">January 2009</a></li>
+                                    <li><a href="#">February 2009</a></li>
+                                    <li><a href="#">March 2009</a></li>
+                                </ul>
+                            </section>
+
+                            <section>
+                                <h3>Community locations</h3>
+                                <ul>
+
+                                    <!DOCTYPE html>
+                        <html>
+                                        <head>
+                                            <style>
+                                                #map {
+                                                    height: 300px;
+                                                width: 100%;
+                                             }
+                                    </style>
+                                        </head>
+                                        <body>
+                                            <div id="map"></div>
+                                            <script>
+                                                function initMap() {
+                                            var startMap = {lat: -25.363, lng: 131.044};
+                                            var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: startMap});
+                                            var marker = new google.maps.Marker({position: startMap, map: map });
+                                            var marker = new google.maps.Marker({position: {lat: -25.363, lng: 151.044 }, map: map });
+                                        }
+    </script>
+                                <script async defer
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRchDroNLe-ud1nMkDSYOb8gmUrB_LJUM&callback=initMap">
+                                </script>
+                            </body>
+                       </html>
+                    </ul>
             </section>
         </aside>
     </div>

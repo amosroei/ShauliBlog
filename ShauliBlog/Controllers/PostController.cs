@@ -146,6 +146,8 @@ namespace ShauliBlog.Controllers
             return View(post);
         }
 
+
+
         //
         // GET: /Post/Delete/5
 
@@ -170,6 +172,11 @@ namespace ShauliBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            bool isAdmin = (Boolean)Session["isAmdin"];
+            if (!isAdmin)
+            {
+                return RedirectToAction("Index");
+            }
             Post singer = db.Post.Find(id);
             db.Post.Remove(singer);
             db.SaveChanges();

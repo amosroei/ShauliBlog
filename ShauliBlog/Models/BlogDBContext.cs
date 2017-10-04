@@ -11,6 +11,7 @@ namespace ShauliBlog.Models
         public DbSet<Fan> Fan { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<Account> Account { get; set; }
 
     }
 }
