@@ -14,10 +14,56 @@ namespace ShauliBlog.Controllers
         private BlogDBContext db = new BlogDBContext();
 
         // GET: Fans
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View(db.Fan.ToList());
+        //}
+
+        public ViewResult Index(string SearchFirst, string SearchLast, string SearchGender)
         {
-            return View(db.Fan.ToList());
+            List<Fan> fans;
+
+            String query = "select * from fans where {0}";
+            string select = "";
+            string where = "";
+
+            if (!String.IsNullOrEmpty(SearchFirst))
+            {
+                select += "FirstName,";
+                where += "FirstName like '%" + SearchFirst + "%'";
+            }
+
+            if (!String.IsNullOrEmpty(SearchLast))// should insert to here
+            {
+                select += "LastName ,";
+
+                if (!String.IsNullOrEmpty(where))
+                {
+                    where += "and ";
+                }
+                where += "LastName like '%" + SearchLast + "%'";
+            }
+
+
+            if (!String.IsNullOrEmpty(SearchGender))
+            {
+                select += "gender ,";
+                if (!String.IsNullOrEmpty(where))
+                {
+                    where += "and ";
+                }
+                where += "gender like '%" + SearchGender + "%'";
+            }
+            if (where == "")
+            {
+                query = query.Substring(0, query.Length - 10);// empty query
+            }
+
+            query = String.Format(query, where);
+            fans = (List<Fan>)db.Fan.SqlQuery(query).ToList();
+            return View(fans.ToList());
         }
+
 
         // GET: Fans/Details/5
         public ActionResult Details(int? id)

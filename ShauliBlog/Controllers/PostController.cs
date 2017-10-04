@@ -9,16 +9,63 @@ using System.Web.Mvc;
 
 namespace ShauliBlog.Controllers
 {
+    /// <summary>
+    ///  ד
+    /// </summary>
     public class PostController : Controller
     {
         private BlogDBContext db = new BlogDBContext();        
 
 
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(string SearchTitle, string SearchAuthor)
         {
-            return View(db.Post.ToList());
+            // TODO: unremark useraccounts
+
+            ViewBag.TotalPosts = db.Post.Count();
+            ViewBag.TotalComments = db.Comment.Count();                                    
+            // ViewBag.TotalAccounts = db.userAccounts.Count();
+            ViewBag.TotalFans = db.Fan.Count();
+            
+            List<Post> posts;
+
+            String query = "select * from posts where {0}";
+            string select = "";
+            string where = "";
+
+            if (!String.IsNullOrEmpty(SearchTitle))
+            {
+                select += "PostTitle,";
+                where += "PostTitle like '%" + SearchTitle + "%'";
+            }
+            if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
+            {
+                select += "PostAuthor ,";
+
+                if (!String.IsNullOrEmpty(where))
+                {
+                    where += "and ";
+                }
+                where += "PostAuthor like '%" + SearchAuthor + "%'";
+            }
+
+
+
+            if (where == "")
+            {
+                query = query.Substring(0, query.Length - 10);// empty query
+            }
+            query = String.Format(query, where);
+            posts = (List<Post>)db.Post.SqlQuery(query).ToList();
+            return View(posts.ToList());
         }
+
+        // GET: Post
+        //public ActionResult Search()
+        //{
+        //    return View(db.Post.ToList());
+        //}
+
 
         //
         // GET: /Post/Details/5
@@ -181,6 +228,14 @@ namespace ShauliBlog.Controllers
             db.Post.Remove(singer);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Statistics()
+        {
+            var query = from i in db.Post
+                        group i by i.PostAuthor into g
+                        select new { PostAuthor = g.Key, c = g.Count() };
+            return View(query.ToList());
         }
 
         protected override void Dispose(bool disposing)
