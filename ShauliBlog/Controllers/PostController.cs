@@ -18,10 +18,49 @@ namespace ShauliBlog.Controllers
 
 
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(string SearchTitle, string SearchAuthor)
         {
-            return View(db.Post.ToList());
+            //return View(db.Post.ToList());
+
+            List<Post> posts;
+
+            String query = "select * from posts where {0}";
+            string select = "";
+            string where = "";
+
+            if (!String.IsNullOrEmpty(SearchTitle))
+            {
+                select += "PostTitle,";
+                where += "PostTitle like '%" + SearchTitle + "%'";
+            }
+            if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
+            {
+                select += "PostAuthor ,";
+
+                if (!String.IsNullOrEmpty(where))
+                {
+                    where += "and ";
+                }
+                where += "PostAuthor like '%" + SearchAuthor + "%'";
+            }
+
+
+
+            if (where == "")
+            {
+                query = query.Substring(0, query.Length - 10);// empty query
+            }
+            query = String.Format(query, where);
+            posts = (List<Post>)db.Post.SqlQuery(query).ToList();
+            return View(posts.ToList());
         }
+
+        // GET: Post
+        //public ActionResult Search()
+        //{
+        //    return View(db.Post.ToList());
+        //}
+
 
         //
         // GET: /Post/Details/5
