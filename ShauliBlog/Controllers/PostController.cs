@@ -20,8 +20,13 @@ namespace ShauliBlog.Controllers
         // GET: Post
         public ActionResult Index(string SearchTitle, string SearchAuthor)
         {
-            //return View(db.Post.ToList());
+            // TODO: unremark useraccounts
 
+            ViewBag.TotalPosts = db.Post.Count();
+            ViewBag.TotalComments = db.Comment.Count();                                    
+            // ViewBag.TotalAccounts = db.userAccounts.Count();
+            ViewBag.TotalFans = db.Fan.Count();
+            
             List<Post> posts;
 
             String query = "select * from posts where {0}";
@@ -216,6 +221,14 @@ namespace ShauliBlog.Controllers
             db.Post.Remove(singer);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Statistics()
+        {
+            var query = from i in db.Post
+                        group i by i.PostAuthor into g
+                        select new { PostAuthor = g.Key, c = g.Count() };
+            return View(query.ToList());
         }
 
         protected override void Dispose(bool disposing)

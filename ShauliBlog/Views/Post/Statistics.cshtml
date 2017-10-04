@@ -1,0 +1,31 @@
+﻿@model IEnumerable<dynamic>
+@using System.Reflection;
+
+
+<table class="table">
+    <tr>
+        <th>
+            Writer Name
+        </th>
+        <th>
+            posts
+        </th>
+
+    </tr>
+
+    @foreach (dynamic d in Model)
+    {
+        var postAuthor = d.GetType().GetProperty("PostAuthor").GetValue(d);
+        var count = d.GetType().GetProperty("c").GetValue(d);
+
+        <tr>
+            <td>
+                @postAuthor
+            </td>
+            <td>
+                @count
+            </td>
+
+        </tr>
+    }
+</table>

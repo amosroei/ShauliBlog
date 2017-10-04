@@ -116,3 +116,19 @@ else
 <p>
     @Html.ActionLink("Add New Post", "Create")
 </p>
+
+@*<a class="navbar-brand">
+    <h3> Statistics</h3>
+</a>*@
+
+
+<h3> Statistics</h3>
+
+To see how many posts each user have @Html.ActionLink("click here ", "Statistics")
+<p class="navbar-text">
+    There are a total of <b>@ViewBag.TotalComments Comments</b>
+    & <b>@ViewBag.TotalPosts Posts</b>
+    & <b>@ViewBag.TotalFans Fans</b>
+    & <b>@ViewBag.TotalAccounts Users</b>
+    in this community.
+</p>
