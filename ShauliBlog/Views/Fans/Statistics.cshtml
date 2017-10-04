@@ -1,0 +1,130 @@
+﻿@model IEnumerable<dynamic>
+@using System.Reflection;
+
+<script src="~/Scripts/d3.min.js"></script>
+<style>
+    text {
+        font-family: sans-serif;
+        font-size: 12px;
+        fill: white;
+    }
+
+    #tooltip {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+    }
+
+        #tooltip.hidden {
+            opacity: 0;
+        }
+
+        #tooltip p {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 16px;
+            line-height: 20px;
+        }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            Gender
+        </th>
+        <th>
+            count
+        </th>
+
+    </tr>
+    
+    @foreach (dynamic d in Model)
+    {
+        var gender = d.GetType().GetProperty("Gender").GetValue(d);
+        var count = d.GetType().GetProperty("c").GetValue(d);
+        //usersData.Add({ label: ""});
+        <tr>
+            <td>
+                @gender
+            </td>
+            <td>
+                @count
+            </td>
+
+        </tr>
+    }
+</table>
+
+<div id="genderChart"></div>
+<div id="tooltip" class="hidden">
+    <p>
+        <strong>Important Label Heading</strong>
+    </p>
+    <p><span id="value">100</span>%</p>
+</div>
+
+<script type="text/javascript">
+    var genderData = @Html.Raw(Json.Encode(@Model));
+
+    data = [];
+    total = 0;
+
+    for (item of genderData) {
+        
+        total += item["c"]
+    }
+
+    for (item of genderData) {
+        data.push({ label: item["Gender"], value: item["c"], percentage: ((item["c"] / total) * 100).toFixed(2) })       
+    }
+
+
+
+    var w = 450,                        //width
+        h = 450,                            //height
+        r = 150,                            //radius
+        color = d3.scale.category20c();     //builtin range of colors
+
+
+    var div = d3.select("#genderChart")
+        .append("svg:svg")              //create the SVG element inside the <body>
+        .data([data])                   //associate our data with the document
+        .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+        .attr("height", h)
+        .append("svg:g")                //make a group to hold our pie chart
+        .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+
+    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+        .outerRadius(r);
+
+    var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+        .value(function (d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+
+    var arcs = div.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+        .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+        .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+        .attr("class", "slice");    //allow us to style things in the slices (like text)
+
+    arcs.append("svg:path")
+        .attr("fill", function (d, i) { return color(i); }) //set the color for each slice to be chosen from the color function defined above
+        .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+
+    arcs.append("svg:text")                                     //add a label to each slice
+        .attr("transform", function (d) {                    //set the label's origin to the center of the arc
+            //we have to make sure to set these before calling arc.centroid
+            d.innerRadius = 0;
+            d.outerRadius = r;
+            return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+        })
+        .attr("text-anchor", "middle")                          //center the text on it's origin
+        .text(function (d, i) { return data[i].label + " (" + data[i].value + "): " + data[i].percentage + "%"; });        //get the label from our original data array 
+
+</script>

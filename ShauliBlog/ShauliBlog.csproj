@@ -289,7 +289,8 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
-	<Content Include="Views\Post\Statistics.cshtml" />
+    <Content Include="Views\Post\Statistics.cshtml" />
+    <Content Include="Views\Fans\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

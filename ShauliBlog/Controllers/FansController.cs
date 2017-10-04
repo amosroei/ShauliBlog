@@ -168,5 +168,13 @@ namespace ShauliBlog.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Statistics()
+        {
+            var query = from i in db.Fan
+                        group i by i.Gender into g
+                        select new { Gender = g.Key, c = g.Count() };
+            return View(query.ToList());
+        }
     }
 }
