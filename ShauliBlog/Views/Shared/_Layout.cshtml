@@ -2,16 +2,22 @@
 <html>
 <head>
     <title>Browser Page title</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="~/Content/mycss.css" type="text/css" media="screen" />    
 </head>
 
 <body>
+    @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery-ui")
+
     <script src="~/Scripts/weather.js"></script>
 
     <audio autoplay="">
-        <source src="assets\audio\sound.mp3">
+        <source src="~/assets/audio/sound.mp3" type="audio/mpeg" />
     </audio>
 
     <header id="siteHeader">
@@ -35,7 +41,7 @@
         <!-- Navigation -->
         <ul id="transDemo2">
             @*<li>@Html.ActionLink("LogIn", "Login", "Account")</li>*@
-            <li>@Html.ActionLink("Blog", "Index", "Home")</li>
+            <li>@Html.ActionLink("Blog", "Index", "Post")</li>
             <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
             @*<li>@Html.ActionLink("Posts", "Index", "Post")</li>*@
             <li><a href="#">About</a></li>
@@ -168,118 +174,9 @@
 
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 
 </body>
 </html>
-
-@*<!DOCTYPE html>
-<html>
-<head>
-    <title>Browser Page title</title>
-    <link href="~/Content/Fonts.css" rel="stylesheet" />
-    <link href="~/Content/Animations.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/mycss.css" type="text/css" media="screen" />
-</head>
-
-<body>
-    <audio autoplay="">
-        <source src="~/Resources/Sounds/shuli.mp3" type="audio/mpeg">
-    </audio>
-
-        <header id="siteHeader">
-            <h1>Ha-Blog Shel Shauli</h1>
-        </header>
-        <nav>
-            <!-- Navigation -->
-            <ul id="transDemo2">
-                <li>@Html.ActionLink("Blog", "Index", "Home")</li>
-                <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li class="hover"><a href="#"><img src="~/images/rss.png" />Subscribe via. RSS</a></li>
-            </ul>
-        </nav>
-        <section id="intro">
-            <!-- Introduction -->
-
-            <header>
-                <h2>Do you have questions for me?</h2>
-            </header>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
-            <img alt="Shauli" src="~/images/intro_shauli.png">
-        </section>
-           
-                <div id="content">
-                    <div id="mainContent">
-                        <section>
-                            @RenderBody()
-                        </section>
-                       
-                    </div>
-                    <aside>
-                        <section>
-                            <header>
-                                <h3>Categories</h3>
-                            </header>
-                            <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Sit amet consectetur</a></li>
-                                <li><a href="#">Adipisicing elit sed</a></li>
-                            </ul>
-                        </section>
-                        <section>
-                            <header>
-                                <h3>Archives</h3>
-                            </header>
-                            <ul>
-                                <li><a href="#">December 2008</a></li>
-                                <li><a href="#">January 2009</a></li>
-                                <li><a href="#">February 2009</a></li>
-                                <li><a href="#">March 2009</a></li>
-                            </ul>
-                        </section>
-                    </aside>
-                </div>
-
-
-                        <footer>
-                            <div>
-                                <section id="about">
-                                    <header>
-                                        <h3>About</h3>
-                                    </header>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut la</p>
-                                </section>
-                                <section id="blogroll">
-                                    <header>
-                                        <h3>Blogroll</h3>
-                                    </header>
-                                    <ul>
-                                        <li><a href="#">NETTUTS+</a></li>
-                                        <li><a href="#">FreelanceSwitch</a></li>
-                                    </ul>
-                                </section>
-                                <section id="popular">
-                                    <header>
-                                        <h3>Popular</h3>
-                                    </header>
-                                    <ul>
-                                        <li><a href="#">This is the title of a blog post</a></li>
-                                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                                        <li><a href="#">Consectetur adipisicing elit, sed do eiusmod</a></li>
-                                    </ul>
-                                </section>
-
-                            </div>
-
-                        </footer>
-
-                        @Scripts.Render("~/bundles/jquery")
-                        @Scripts.Render("~/bundles/bootstrap")
-                        @RenderSection("scripts", required: false)
-
-</body>
-</html>*@
