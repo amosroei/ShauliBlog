@@ -27,6 +27,7 @@ namespace ShauliBlog
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/FontAwesome/font-awesome.css",
                       "~/Content/bootstrap.css",
                       "~/Content/jquery-ui.css",
                       "~/Content/mycss.css",

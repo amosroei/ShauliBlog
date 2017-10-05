@@ -529,3 +529,49 @@ body {
     font-size:25px;
     font-weight:bold;
 }
+
+
+/*Header Section*/
+.siteHeader {
+    font-size: 28px;
+    line-height: 44px;
+    padding: 22px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.rightSide {
+    float: right;
+    /*text-anchor:middle;*/
+}
+
+.leftSide {
+    float: left;
+}
+
+#temp:after {
+    content: "\00b0"
+}
+
+.weatherHeader {
+    color: #ffffff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    user-select: none;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+}
