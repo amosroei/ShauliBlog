@@ -15,6 +15,7 @@
     @Scripts.Render("~/bundles/jquery-ui")
 
     <script src="~/Scripts/weather.js"></script>
+    <script src="~/Scripts/facebook.js"></script>
 
     <audio autoplay="">
         <source src="~/assets/audio/sound.mp3" type="audio/mpeg" />
@@ -22,6 +23,11 @@
 
     <header id="siteHeader">
         <h1>Ha-Blog Shel Shauli</h1>
+        <section>
+            <div class="fb-follow" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-size="small" data-show-faces="true"></div>
+            <div class="fb-like" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+            <p></p>
+        </section>
         @if (Session["UserName"] != null)
         {
             if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
@@ -37,18 +43,33 @@
 
         }
     </header>
-    <nav class="grad">
-        <!-- Navigation -->
-        <ul id="transDemo2">
-            @*<li>@Html.ActionLink("LogIn", "Login", "Account")</li>*@
-            <li>@Html.ActionLink("Blog", "Index", "Post")</li>
-            <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
-            @*<li>@Html.ActionLink("Posts", "Index", "Post")</li>*@
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li class="subscribe" id="rss"><a href="#"><img src="~/images/rss.png" />Subscribe via. RSS</a></li>
-        </ul>
-    </nav>
+    @if (Session["UserName"] != null)
+    {
+        <nav class="grad">
+            <!-- Navigation -->
+            <ul id="transDemo2">
+
+                <li>@Html.ActionLink("Blog", "Index", "Post")</li>
+                <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
+
+                @if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+                {
+                    <li>@Html.ActionLink("BlogManagment", "Index", "Post")</li>
+                    <li>@Html.ActionLink("AccountManagment", "Index", "Account")</li>
+                }
+                <li class="subscribe" id="rss"><a href="#"><img src="~/images/rss.png" />Subscribe via. RSS</a></li>
+            </ul>
+        </nav>
+    }
+    @if (Session["UserName"] == null)
+    {
+        <nav class="grad">
+            <ul id="transDemo2">
+                <li>@Html.ActionLink("LogIn", "Login", "Account")</li>
+            </ul>
+        </nav>
+    }
+    
     <section id="intro" class="grad">
         <!-- Introduction -->
 
@@ -180,3 +201,19 @@
 
 </body>
 </html>
+
+<div class="row">
+    <div class="col-md-3">
+        <script>
+                                                (function (d, s, id) {
+                                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                                    if (d.getElementById(id)) return;
+                                                    js = d.createElement(s); js.id = id;
+                                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+                                                    fjs.parentNode.insertBefore(js, fjs);
+                                                }(document, 'script', 'facebook-jssdk'));</script>
+        <div>
+            <div id="fb-root"></div>
+
+        </div>
+    </div>

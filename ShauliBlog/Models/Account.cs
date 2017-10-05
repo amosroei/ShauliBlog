@@ -14,9 +14,12 @@ namespace ShauliBlog.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Compare("Password", ErrorMessage = "Please confirm your Password")]
         [DataType(DataType.Password)]
         public string ComfirmPassword { get; set; }
+        
         public bool IsAdmin { get; set; }
     }
 }

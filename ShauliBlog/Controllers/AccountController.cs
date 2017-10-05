@@ -67,7 +67,7 @@ namespace ShauliBlog.Controllers
                 ModelState.Clear();
                 ViewBag.Message = account.FirstName + " " + account.LastName + " successfully registered ";
             }
-            return View();
+            return RedirectToAction("Login");
         }
         //login
         public ActionResult Login()
