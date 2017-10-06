@@ -6,7 +6,6 @@
 
 <body>
     @Styles.Render("~/Content/css")
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
@@ -36,12 +35,12 @@
                     <h4>Hello @Html.ActionLink(uName, "Details", "Account", new { id = Session["UserID"] }, null)</h4>
                 }
                 @Html.ActionLink("LogOut", "LogOut", "Account");
-                <section>
-                    <div class="fb-follow" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-size="small" data-show-faces="true"></div>
-                    <div class="fb-like" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-                    <p></p>
-                </section>
             }
+            <section>
+                <div class="fb-follow" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-size="small" data-show-faces="true"></div>
+                <div class="fb-like" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                <p></p>
+            </section>
         </div>
 
         <div class="rightSide">            

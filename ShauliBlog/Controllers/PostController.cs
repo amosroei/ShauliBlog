@@ -186,6 +186,7 @@ namespace ShauliBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.PostDate = DateTime.Now;
                 db.Entry(post).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
