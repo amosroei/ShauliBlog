@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Browser Page title</title>  
+    <title>Browser Page title</title>
 </head>
 
 <body>
@@ -14,6 +14,7 @@
 
     <script src="~/Scripts/weather.js"></script>
     <script src="~/Scripts/facebook.js"></script>
+    @*<script src="~/Scripts/facebook.js"></script>*@
 
     <audio autoplay="">
         <source src="~/assets/audio/sound.mp3" type="audio/mpeg" />
@@ -24,6 +25,19 @@
     <header class="siteHeader">
         <div class="leftSide">
             <p>Ha-Blog Shel Shauli</p>
+            <div class="fb-follow" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="button" data-size="small" data-show-faces="true"></div>
+            <div class="fb-like" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+            
+        </div>
+
+        <div class="rightSide">
+            <div class="weatherHeader" style="color:white; background-color:#428bca">
+                <span id="name" style="font-size: 18px; padding-right:15px;"></span>
+                <div class="fa fa-thermometer-full"></div>
+                <span id="temp" style="font-size: 14px;padding-right:5px;"></span>
+                <span class="fa fa-tint"></span>
+                <span id="humidity" style="font-size: 14px;"></span><span>%</span>
+            </div>
             @if (Session["UserName"] != null)
             {
                 if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
@@ -35,23 +49,8 @@
                     string uName = @Session["UserName"].ToString();
                     <h4>Hello @Html.ActionLink(uName, "Details", "Account", new { id = Session["UserID"] }, null)</h4>
                 }
-                @Html.ActionLink("LogOut", "LogOut", "Account");
-                <section>
-                    <div class="fb-follow" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-size="small" data-show-faces="true"></div>
-                    <div class="fb-like" data-href="https://www.facebook.com/Shauli-118833822143038/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-                    <p></p>
-                </section>
+                <h5>@Html.ActionLink("LogOut", "LogOut", "Account")</h5>
             }
-        </div>
-
-        <div class="rightSide">            
-            <div class="weatherHeader" style="color:white; background-color:#428bca">
-                <span id="name" style="font-size: 18px; padding-right:15px;"></span>
-                <div class="fa fa-thermometer-full"></div>
-                <span id="temp" style="font-size: 14px;padding-right:5px;"></span>
-                <span class="fa fa-tint"></span>
-                <span id="humidity" style="font-size: 14px;"></span><span>%</span>
-            </div>           
         </div>
     </header>
     @if (Session["UserName"] != null)
@@ -80,7 +79,7 @@
             </ul>
         </nav>
     }
-    
+
     <section id="intro" class="grad">
         <!-- Introduction -->
 
@@ -90,7 +89,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
         <img alt="Shauli" src="~/images/intro_shauli.png">
     </section>
-    
+
     <img src="~/Post/Index" />
 
     <div id="content">
@@ -101,7 +100,7 @@
             </section>
 
         </div>
-        <aside>            
+        <aside>
             <section>
                 <header>
                     <h3>Archives</h3>
@@ -168,22 +167,25 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRchDroNLe-ud1nMkDSYOb8gmUrB_LJUM&language=en&callback=initMap"></script>
-    <script src="~/Scripts/geoLocator.js"></script>  
-</body>
-</html>
+    <script src="~/Scripts/geoLocator.js"></script>
 
-<div class="row">
-    <div class="col-md-3">
-        <script>
-                                                (function (d, s, id) {
-                                                    var js, fjs = d.getElementsByTagName(s)[0];
-                                                    if (d.getElementById(id)) return;
-                                                    js = d.createElement(s); js.id = id;
-                                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
-                                                    fjs.parentNode.insertBefore(js, fjs);
-                                                }(document, 'script', 'facebook-jssdk'));</script>
-        <div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @*<script>
+                (function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>*@
+            <div>
             <div id="fb-root"></div>
 
+            </div>
         </div>
     </div>
+</body>
+</html>
