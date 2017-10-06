@@ -535,10 +535,19 @@ body {
 .siteHeader {
     font-size: 28px;
     line-height: 44px;
-    padding: 22px 0;
+    padding: 0px 0px 0px 0px;
     display: inline-block;
     width: 100%;
 }
+
+.siteHeader p{
+    padding:0px;
+    margin:0px;
+}
+
+    .siteHeader .fb-follow, .fb-like {
+        line-height:10px;
+    }
 
 .rightSide {
     float: right;
