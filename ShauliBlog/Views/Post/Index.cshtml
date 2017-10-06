@@ -73,11 +73,11 @@
                         <section class="CommentSection">
                             <div id="NewComment_@post.PostID" class="NewComment">
 
-                                <input class="CommentAuthor" type="text" placeholder="Name" />
+                                @*<input class="CommentAuthor" type="text" placeholder="Name" />*@
 
                                 <textarea class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
 
-                                <input type="button" value="Post" onClick="NewComment(@post.PostID)" />
+                                <input type="button" value="Post" onClick="NewComment(@post.PostID, '@Session["UserName"]', '@Session["UserID"]')" />
 
                             </div>
 
@@ -92,8 +92,10 @@
                                 </a>
                                 @*  }*@
                                 @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.User != null ? comment.User.Username : comment.Name)</b>*@
-                                author : @comment.CommentAuthor
-                                <b>@string.Format("{0} - {1}", comment.CommentID, comment.CommentAuthor)</b>
+                                @*author : @comment.CommentAuthor*@
+                                @*author : @comment.Account.UserName*@
+                                @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.CommentAuthor)</b>*@
+                                <b>@string.Format("{0} - {1}", comment.CommentDate.ToString("g"), comment.Account.UserName)</b>                                
                                 <br>
                                 @comment.CommentText
                             </p>
