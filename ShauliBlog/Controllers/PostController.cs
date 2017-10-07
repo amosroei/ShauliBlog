@@ -16,78 +16,85 @@ namespace ShauliBlog.Controllers
     {
         private BlogDBContext db = new BlogDBContext();
 
-        public ActionResult Index()
-        {
+        //public ActionResult Index()
+        //{
 
+        //    if (Session["UserId"] == null)
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    else if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+        //    {
+
+        //        var posts = from s in db.Post select s;
+        //        ViewBag.TotalPosts = db.Post.Count();
+        //        ViewBag.TotalComments = db.Comment.Count();
+        //        // ViewBag.TotalAccounts = db.userAccounts.Count();
+        //        ViewBag.TotalFans = db.Fan.Count();
+
+        //        return View(posts.ToList());
+        //    }
+        //    else
+        //    {
+
+        //        return RedirectToAction("Index", "Post");
+
+        //    }
+        //}
+
+        // GET: Post
+        //[HttpPost]
+
+        public ActionResult Index(string SearchTitle, string SearchAuthor)
+        {
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-
-            else if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+            else 
             {
+                // TODO: unremark useraccounts
 
-                var posts = from s in db.Post select s;
                 ViewBag.TotalPosts = db.Post.Count();
                 ViewBag.TotalComments = db.Comment.Count();
                 // ViewBag.TotalAccounts = db.userAccounts.Count();
                 ViewBag.TotalFans = db.Fan.Count();
 
+                List<Post> posts;
+
+                String query = "select * from posts where {0}";
+                string select = "";
+                string where = "";
+
+                if (!String.IsNullOrEmpty(SearchTitle))
+                {
+                    select += "PostTitle,";
+                    where += "PostTitle like '%" + SearchTitle + "%'";
+                }
+                if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
+                {
+                    select += "PostAuthor ,";
+
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "PostAuthor like '%" + SearchAuthor + "%'";
+                }
+
+
+
+                if (where == "")
+                {
+                    query = query.Substring(0, query.Length - 10);// empty query
+                }
+                query = String.Format(query, where);
+                posts = (List<Post>)db.Post.SqlQuery(query).ToList();
                 return View(posts.ToList());
             }
-            else
-            {
 
-                return RedirectToAction("Index", "Post");
-
-            }
         }
-
-        // GET: Post
-        [HttpPost]
-
-        public ViewResult Index(string SearchTitle, string SearchAuthor)
-        {
-            // TODO: unremark useraccounts
-
-            ViewBag.TotalPosts = db.Post.Count();
-            ViewBag.TotalComments = db.Comment.Count();                                    
-            // ViewBag.TotalAccounts = db.userAccounts.Count();
-            ViewBag.TotalFans = db.Fan.Count();
-            
-            List<Post> posts;
-
-            String query = "select * from posts where {0}";
-            string select = "";
-            string where = "";
-
-            if (!String.IsNullOrEmpty(SearchTitle))
-            {
-                select += "PostTitle,";
-                where += "PostTitle like '%" + SearchTitle + "%'";
-            }
-            if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
-            {
-                select += "PostAuthor ,";
-
-                if (!String.IsNullOrEmpty(where))
-                {
-                    where += "and ";
-                }
-                where += "PostAuthor like '%" + SearchAuthor + "%'";
-            }
-
-
-
-            if (where == "")
-            {
-                query = query.Substring(0, query.Length - 10);// empty query
-            }
-            query = String.Format(query, where);
-            posts = (List<Post>)db.Post.SqlQuery(query).ToList();
-            return View(posts.ToList());
-        }
-
         // GET: Post
         //public ActionResult Search()
         //{
