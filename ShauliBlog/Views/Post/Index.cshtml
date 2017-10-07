@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ShauliBlog.Models.Post>
+@using ShauliBlog.Models;
 
 @{
     ViewBag.Title = "Search";
@@ -27,10 +28,11 @@
 @if (Model.Count() != 0)
 {
     int i = 0;
-
+    
     <div class="PostDiv">          
         @foreach (var post in Model)
         {
+            
             i++;
             
             <section class="panel panel-primary PostSection">
@@ -41,25 +43,34 @@
                     <a href="~/Post/Delete/@post.PostID">
                         <img src="~/images/x.png" class="postHeaderImg" />
                     </a>
-
+                   
                     <a href="~/Post/Edit/@post.PostID">
                         <img src="~/images/edit.gif" class="postHeaderImg editPostImg" />
                     </a>
-               
+                    
                     <p class="PostTitle">
                         @post.PostTitle - <span style="font-size:15px;">@post.PostDate</span> - <a style="color:white;" href="http://@post.PostAuthorWebsite">@post.PostAuthor</a>
                     </p>                    
                 </div>
                 <div class="panel-body">
                     <label>@post.PostVideoPath</label>
+@if (post.PostVideoPath != null)
+{
+
                     <video controls="controls">
+
                         <source src="~/videos/@post.PostVideoPath" type="video/mp4" />
+                        
                         Your browser does not support the video tag.
+
                     </video>
-
+}
                     <label>@post.PostPicturePath</label>
-                    <img src="~/images/@post.PostPicturePath" style="width:100%" />
 
+                    @if (post.PostPicturePath != null)
+                    {
+                    <img src="~/images/@post.PostPicturePath" style="width:100%" />
+                    }
                     <p class="PostDesc">
                         @post.PostText
                     </p>

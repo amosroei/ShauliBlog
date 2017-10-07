@@ -14,11 +14,39 @@ namespace ShauliBlog.Controllers
     /// </summary>
     public class PostController : Controller
     {
-        private BlogDBContext db = new BlogDBContext();        
+        private BlogDBContext db = new BlogDBContext();
 
+        public ActionResult Index()
+        {
+
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            else if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+            {
+
+                var posts = from s in db.Post select s;
+                ViewBag.TotalPosts = db.Post.Count();
+                ViewBag.TotalComments = db.Comment.Count();
+                // ViewBag.TotalAccounts = db.userAccounts.Count();
+                ViewBag.TotalFans = db.Fan.Count();
+
+                return View(posts.ToList());
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Post");
+
+            }
+        }
 
         // GET: Post
-        public ActionResult Index(string SearchTitle, string SearchAuthor)
+        [HttpPost]
+
+        public ViewResult Index(string SearchTitle, string SearchAuthor)
         {
             // TODO: unremark useraccounts
 
