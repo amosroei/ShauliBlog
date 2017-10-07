@@ -130,7 +130,7 @@ namespace ShauliBlog.Controllers
         // POST: /Post/Create
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "PostID,PostTitle,PostAuthor,PostAuthorWebsite,PostDate,PostText,PostPicturePath,PostVideoPath")] Post post)
+        public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)
             {
@@ -184,7 +184,9 @@ namespace ShauliBlog.Controllers
 
 
                 if (isSavedSuccessfully)
-                {                    
+                {
+                    post.Account = db.Account.FirstOrDefault(a => a.UserId == post.AccountId);
+
                     post.PostDate = DateTime.Now;
 
                     db.Post.Add(post);
@@ -217,7 +219,7 @@ namespace ShauliBlog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,PostTitle,PostAuthor,PostAuthorWebsite,PostDate,PostText,PostPicturePath,PostVideoPath")] Post post)
+        public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
             {
@@ -269,8 +271,10 @@ namespace ShauliBlog.Controllers
         public ActionResult Statistics()
         {
             var query = from i in db.Post
-                        group i by i.PostAuthor into g
-                        select new { PostAuthor = g.Key, c = g.Count() };
+                        group i by i.Account.UserName into g
+                        select new { UserName = g.Key, c = g.Count() };
+            //group i by i.PostAuthor into g
+            //select new { PostAuthor = g.Key, c = g.Count() };
             return View(query.ToList());
         }
 

@@ -25,6 +25,9 @@
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Website)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.IsAdmin)
         </th>
 
@@ -49,6 +52,9 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.IsAdmin)
         </td>
 
@@ -69,11 +75,3 @@
 <section>
     <div id="map"></div>
 </section>
-
-@{ 
-//var json = Html.Raw(Json.Encode(addressList));
-//var json2 = json;
-}
-<script>
-    //console.log(@addressList);
-</script>
