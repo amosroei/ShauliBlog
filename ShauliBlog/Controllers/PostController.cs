@@ -24,7 +24,7 @@ namespace ShauliBlog.Controllers
 
             ViewBag.TotalPosts = db.Post.Count();
             ViewBag.TotalComments = db.Comment.Count();                                    
-            // ViewBag.TotalAccounts = db.userAccounts.Count();
+            ViewBag.TotalAccounts = db.Account.Count();
             ViewBag.TotalFans = db.Fan.Count();
             
             List<Post> posts;
@@ -88,6 +88,7 @@ namespace ShauliBlog.Controllers
         // GET: /Post/Create
         public ActionResult Create()
         {
+            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View();
         }
 
@@ -95,7 +96,7 @@ namespace ShauliBlog.Controllers
         // POST: /Post/Create
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "PostID,PostTitle,PostAuthor,PostAuthorWebsite,PostDate,PostText,PostPicturePath,PostVideoPath")] Post post)
+        public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)
             {

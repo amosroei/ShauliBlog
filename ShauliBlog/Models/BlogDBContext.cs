@@ -12,6 +12,7 @@ namespace ShauliBlog.Models
         public DbSet<Post> Post { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<Account> Account { get; set; }
+        public DbSet<Genre> Genre { get; set; }
 
     }
 }

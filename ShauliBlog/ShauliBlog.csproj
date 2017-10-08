@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FansController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
@@ -196,6 +197,7 @@
     <Compile Include="Models\BlogDBContext.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Fan.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
@@ -228,6 +230,7 @@
     <Content Include="images\sidebar_background.png" />
     <Content Include="images\sidebar_section_background.png" />
     <Content Include="images\x.png" />
+    <Content Include="Scripts\autoComplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -289,7 +292,9 @@
     <Content Include="Scripts\weather.js" />
     <Content Include="videos\rish.wmv" />
     <Content Include="videos\shauli.mp4" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -300,8 +305,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\JoinQueryCommentsPosts.cshtml" />
+    <Content Include="Views\Home\JoinQueryPostCat.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -338,6 +343,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Views\Genre\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

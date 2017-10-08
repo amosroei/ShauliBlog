@@ -2,7 +2,7 @@
     var startMap = { lat: -25.363, lng: 131.044 };
     var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: startMap });
     var marker = new google.maps.Marker({ position: startMap, map: map });
-    var marker = new google.maps.Marker({ position: { lat: -25.363, lng: 151.044 }, map: map });
+    var marker = new google.maps.Marker({ position: { lat: 32.1663133, lng: 34.843311 }, map: map });
 }
 
 //initMap();

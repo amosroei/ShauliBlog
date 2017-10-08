@@ -15,6 +15,7 @@ namespace ShauliBlog.Controllers
 
     public class AccountController : Controller
     {
+
         private BlogDBContext db = new BlogDBContext();
         // GET: Account
         public ActionResult Index()
