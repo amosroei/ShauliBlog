@@ -47,9 +47,18 @@
                     <a href="~/Post/Edit/@post.PostID">
                         <img src="~/images/edit.gif" class="postHeaderImg editPostImg" />
                     </a>
+                    @{
+                        string accountWebsite = "", userName = "";
+                        if (post.Account != null)
+                        {
+                            accountWebsite = post.Account != null ? "http://" + post.Account.Website : "";
+                            userName = post.Account.UserName;
+                        }
+
+                    }
                     
                     <p class="PostTitle">
-                        @post.PostTitle - <span style="font-size:15px;">@post.PostDate</span> - <a style="color:white;" href="http://@post.Account.Website">@post.Account.UserName</a>
+                        @post.PostTitle - <span style="font-size:15px;">@post.PostDate</span> - <a style="color:white;" href="@accountWebsite">@userName</a>
                     </p>                    
                 </div>
                 <div class="panel-body">

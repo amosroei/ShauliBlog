@@ -51,8 +51,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PostPicturePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostPicturePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostPicturePath, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.PostPicturePath, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostPicturePath, "", new { @class = "text-danger" })*@
+                @*<input name="image" type="file" value="@Model.PostPicturePath"/>*@
             </div>
         </div>
 
