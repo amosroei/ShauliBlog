@@ -69,12 +69,14 @@
     
     @foreach (dynamic d in Model)
     {
-        var postAuthor = d.GetType().GetProperty("PostAuthor").GetValue(d);
+        //var postAuthor = d.GetType().GetProperty("PostAuthor").GetValue(d);
+        var userName = d.GetType().GetProperty("UserName").GetValue(d);
         var count = d.GetType().GetProperty("c").GetValue(d);
         //usersData.Add({ label: ""});
         <tr>
             <td>
-                @postAuthor
+                @*@postAuthor*@
+                @userName
             </td>
             <td>
                 @count
@@ -92,7 +94,8 @@
     data = [];
 
     for (user of usersData) {
-        data.push({label: user["PostAuthor"], value: user["c"]})
+        //data.push({label: user["PostAuthor"], value: user["c"]})
+        data.push({ label: user["UserName"], value: user["c"] })
     }
 
 

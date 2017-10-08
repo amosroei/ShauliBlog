@@ -14,13 +14,47 @@ namespace ShauliBlog.Controllers
     /// </summary>
     public class PostController : Controller
     {
-        private BlogDBContext db = new BlogDBContext();        
+        private BlogDBContext db = new BlogDBContext();
 
+        //public ActionResult Index()
+        //{
+
+        //    if (Session["UserId"] == null)
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    else if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
+        //    {
+
+        //        var posts = from s in db.Post select s;
+        //        ViewBag.TotalPosts = db.Post.Count();
+        //        ViewBag.TotalComments = db.Comment.Count();
+        //        // ViewBag.TotalAccounts = db.userAccounts.Count();
+        //        ViewBag.TotalFans = db.Fan.Count();
+
+        //        return View(posts.ToList());
+        //    }
+        //    else
+        //    {
+
+        //        return RedirectToAction("Index", "Post");
+
+        //    }
+        //}
 
         // GET: Post
+        //[HttpPost]
+
         public ActionResult Index(string SearchTitle, string SearchAuthor)
         {
-            // TODO: unremark useraccounts
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else 
+            {
+                // TODO: unremark useraccounts
 
             ViewBag.TotalPosts = db.Post.Count();
             ViewBag.TotalComments = db.Comment.Count();                                    
@@ -29,37 +63,38 @@ namespace ShauliBlog.Controllers
             
             List<Post> posts;
 
-            String query = "select * from posts where {0}";
-            string select = "";
-            string where = "";
+                String query = "select * from posts where {0}";
+                string select = "";
+                string where = "";
 
-            if (!String.IsNullOrEmpty(SearchTitle))
-            {
-                select += "PostTitle,";
-                where += "PostTitle like '%" + SearchTitle + "%'";
-            }
-            if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
-            {
-                select += "PostAuthor ,";
-
-                if (!String.IsNullOrEmpty(where))
+                if (!String.IsNullOrEmpty(SearchTitle))
                 {
-                    where += "and ";
+                    select += "PostTitle,";
+                    where += "PostTitle like '%" + SearchTitle + "%'";
                 }
-                where += "PostAuthor like '%" + SearchAuthor + "%'";
+                if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
+                {
+                    select += "PostAuthor ,";
+
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "PostAuthor like '%" + SearchAuthor + "%'";
+                }
+
+
+
+                if (where == "")
+                {
+                    query = query.Substring(0, query.Length - 10);// empty query
+                }
+                query = String.Format(query, where);
+                posts = (List<Post>)db.Post.SqlQuery(query).ToList();
+                return View(posts.ToList());
             }
 
-
-
-            if (where == "")
-            {
-                query = query.Substring(0, query.Length - 10);// empty query
-            }
-            query = String.Format(query, where);
-            posts = (List<Post>)db.Post.SqlQuery(query).ToList();
-            return View(posts.ToList());
         }
-
         // GET: Post
         //public ActionResult Search()
         //{
@@ -150,7 +185,9 @@ namespace ShauliBlog.Controllers
 
 
                 if (isSavedSuccessfully)
-                {                    
+                {
+                    post.Account = db.Account.FirstOrDefault(a => a.UserId == post.AccountId);
+
                     post.PostDate = DateTime.Now;
 
                     db.Post.Add(post);
@@ -183,7 +220,7 @@ namespace ShauliBlog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,PostTitle,PostAuthor,PostAuthorWebsite,PostDate,PostText,PostPicturePath,PostVideoPath")] Post post)
+        public ActionResult Edit(Post post)
         {
             if (ModelState.IsValid)
             {
@@ -236,8 +273,10 @@ namespace ShauliBlog.Controllers
         public ActionResult Statistics()
         {
             var query = from i in db.Post
-                        group i by i.PostAuthor into g
-                        select new { PostAuthor = g.Key, c = g.Count() };
+                        group i by i.Account.UserName into g
+                        select new { UserName = g.Key, c = g.Count() };
+            //group i by i.PostAuthor into g
+            //select new { PostAuthor = g.Key, c = g.Count() };
             return View(query.ToList());
         }
 

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ShauliBlog.Models.Post>
+@using ShauliBlog.Models;
 
 @{
     ViewBag.Title = "Search";
@@ -27,10 +28,11 @@
 @if (Model.Count() != 0)
 {
     int i = 0;
-
+    
     <div class="PostDiv">          
         @foreach (var post in Model)
         {
+            
             i++;
             
             <section class="panel panel-primary PostSection">
@@ -41,25 +43,43 @@
                     <a href="~/Post/Delete/@post.PostID">
                         <img src="~/images/x.png" class="postHeaderImg" />
                     </a>
-
+                   
                     <a href="~/Post/Edit/@post.PostID">
                         <img src="~/images/edit.gif" class="postHeaderImg editPostImg" />
                     </a>
-               
+                    @{
+                        string accountWebsite = "", userName = "";
+                        if (post.Account != null)
+                        {
+                            accountWebsite = post.Account != null ? "http://" + post.Account.Website : "";
+                            userName = post.Account.UserName;
+                        }
+
+                    }
+                    
                     <p class="PostTitle">
-                        @post.PostTitle - <span style="font-size:15px;">@post.PostDate</span> - <a style="color:white;" href="http://@post.PostAuthorWebsite">@post.PostAuthor</a>
+                        @post.PostTitle - <span style="font-size:15px;">@post.PostDate</span> - <a style="color:white;" href="@accountWebsite">@userName</a>
                     </p>                    
                 </div>
                 <div class="panel-body">
                     <label>@post.PostVideoPath</label>
+@if (post.PostVideoPath != null)
+{
+
                     <video controls="controls">
+
                         <source src="~/videos/@post.PostVideoPath" type="video/mp4" />
+                        
                         Your browser does not support the video tag.
+
                     </video>
-
+}
                     <label>@post.PostPicturePath</label>
-                    <img src="~/images/@post.PostPicturePath" style="width:100%" />
 
+                    @if (post.PostPicturePath != null)
+                    {
+                    <img src="~/images/@post.PostPicturePath" style="width:100%" />
+                    }
                     <p class="PostDesc">
                         @post.PostText
                     </p>
@@ -73,11 +93,11 @@
                         <section class="CommentSection">
                             <div id="NewComment_@post.PostID" class="NewComment">
 
-                                <input class="CommentAuthor" type="text" placeholder="Name" />
+                                @*<input class="CommentAuthor" type="text" placeholder="Name" />*@
 
                                 <textarea class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
 
-                                <input type="button" value="Post" onClick="NewComment(@post.PostID)" />
+                                <input type="button" value="Post" onClick="NewComment(@post.PostID, '@Session["UserName"]', '@Session["UserID"]')" />
 
                             </div>
 
@@ -92,8 +112,10 @@
                                 </a>
                                 @*  }*@
                                 @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.User != null ? comment.User.Username : comment.Name)</b>*@
-                                author : @comment.CommentAuthor
-                                <b>@string.Format("{0} - {1}", comment.CommentID, comment.CommentAuthor)</b>
+                                @*author : @comment.CommentAuthor*@
+                                @*author : @comment.Account.UserName*@
+                                @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.CommentAuthor)</b>*@
+                                <b>@string.Format("{0} - {1}", comment.CommentDate.ToString("g"), comment.Account.UserName)</b>                                
                                 <br>
                                 @comment.CommentText
                             </p>

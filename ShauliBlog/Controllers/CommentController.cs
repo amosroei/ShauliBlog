@@ -53,16 +53,18 @@ namespace ShauliBlog.Controllers
             }
 
             //return View(comment);
+            comment.Account = db.Account.FirstOrDefault(a => a.UserId == comment.AccountId);
+            //comment.CommentPost = db.Post.FirstOrDefault(p => p.PostID == comment.PostId);
 
             return Json(new
             {
-                PostId = comment.PostID,
-                //UserId: userId,
-                CommentAuthor = comment.CommentAuthor,
+                PostId = comment.PostId,
+                //Post = comment.CommentPost,            
+                //CommentAuthor = comment.CommentAuthor,
+                Account = comment.Account,
                 CommentText = comment.CommentText,
 
-                Text = comment.CommentText,                
-                //User = comment.User != null ? comment.User.Username : comment.Name,
+                //Text = comment.CommentText,                                
                 Date = comment.CommentDate.ToString(),
                 id = comment.CommentID
             });

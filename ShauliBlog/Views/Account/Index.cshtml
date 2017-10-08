@@ -22,6 +22,12 @@
             @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Website)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.IsAdmin)
         </th>
 
@@ -43,6 +49,12 @@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.IsAdmin)
         </td>
 
@@ -56,3 +68,10 @@
 }
 
 </table>
+@{   
+    var addressList = String.Join(";",Model.Select(user => user.Address).ToList());
+}
+<button onclick="showUserAddresses('@addressList')">show users locations</button>
+<section>
+    <div id="map"></div>
+</section>

@@ -112,8 +112,8 @@
             </section>
 
             <section>
-                <h3>Community locations</h3>
-                <div id="map"></div>
+                @*<h3>Community locations</h3>
+                <div id="map"></div>*@
             </section>
         </aside>
     </div>
@@ -153,18 +153,19 @@
     @*@RenderSection("scripts", required: false)*@
 
     <script>
-        function initMap() {
-            var startMap = { lat: -25.363, lng: 131.044 };
-            var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: startMap });
-            var marker = new google.maps.Marker({ position: startMap, map: map });
-            var marker = new google.maps.Marker({ position: { lat: -25.363, lng: 151.044 }, map: map });
+        //function initMap() {
+        //    var startMap = { lat: -25.363, lng: 131.044 };
+        //    var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: startMap });
+        //    var marker = new google.maps.Marker({ position: startMap, map: map });
+        //    var marker = new google.maps.Marker({ position: { lat: -25.363, lng: 151.044 }, map: map });
 
-            //initialize();
-        }
+        //    //initialize();
+        //}
 
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRchDroNLe-ud1nMkDSYOb8gmUrB_LJUM&language=en&callback=initMap"></script>
+    <script src="~/Scripts/googleApiHandler.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRchDroNLe-ud1nMkDSYOb8gmUrB_LJUM&language=en&callback=initMap&libraries=places"></script>
     <script src="~/Scripts/geoLocator.js"></script>
     <script src="~/Scripts/autoComplete.js"></script>
 

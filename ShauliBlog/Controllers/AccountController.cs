@@ -20,7 +20,7 @@ namespace ShauliBlog.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            if (Session["UserID"] == null)
+            if (Session["UserId"] == null)
             {
 
                 //shuld print into a text box--> " Admin only! login before"
@@ -37,10 +37,8 @@ namespace ShauliBlog.Controllers
             }
             else
             {
-                String s = "You don't have premission. To return home page please click HomePage";
-                Console.WriteLine(s);
 
-                return RedirectToAction("Home", "Posts");
+                return RedirectToAction("Index", "Post");
 
             }
         }

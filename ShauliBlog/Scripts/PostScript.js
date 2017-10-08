@@ -31,30 +31,22 @@ function DeleteComment(commentId) {
     });
 }
 
-function NewComment(postId) {
+function NewComment(postId, userName, userId) {
 
-    var div = $('#NewComment_' + postId);
-    var nameInput = div.find('.CommentAuthor');
-    var name = "";
-
-    if (nameInput.length != 0) {
-        name = nameInput.val();
-    }
-
-    var userId = $('.UserId').val();
+    var div = $('#NewComment_' + postId);              
 
     var text = div.find('.CommentText').val();
 
     if (text == null ||
-        text.trim() == "" ||
-        (name == "" && userId == "")) {
+        text.trim() == "") {
         alert("Post Comment: Missng fields")
     }
     else {
         var newComment = {            
             PostId: postId,
-            UserId: userId,
-            CommentAuthor: name,
+            //UserId: userId,
+            //CommentAuthor: commentAuthor,
+            AccountId: userId,        
             CommentText: text,            
         };
 
@@ -72,9 +64,12 @@ function NewComment(postId) {
 }
 
 function NewCommentSuccess(data) {
-    var newCommentElement = "<p id='Comment_" + data.id + "'><b>" + data.Date + " - ";
-    newCommentElement += data.User;
-    newCommentElement += "</b> <br>" + data.Text +
+    var date = new Date(data.Date);
+    //date.setSeconds(0, 0);
+    var formattedDateString = date.toLocaleString('en-GB');
+    var newCommentElement = "<p id='Comment_" + data.id + "'><b>" + formattedDateString + " - ";
+    newCommentElement += data.Account.UserName;
+    newCommentElement += "</b> <br>" + data.CommentText +
         "<a onclick='DeleteComment(" + data.id + ")'>" +
         "<img src='../../images/x.png' class='postHeaderImg'/>" +
         "</a>  </p>";

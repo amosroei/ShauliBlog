@@ -240,6 +240,7 @@
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\facebook.js" />
     <Content Include="Scripts\geoLocator.js" />
+    <Content Include="Scripts\googleApiHandler.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
