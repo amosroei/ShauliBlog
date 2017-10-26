@@ -15,6 +15,9 @@ namespace ShauliBlog.Models
         //public string PostAuthorWebsite { get; set; }
         public DateTime PostDate { get; set; }
         public string PostText { get; set; }
+        //public string Genre { get; set; }
+        [Display(Name = "Genre")]
+        public int GenreId { get; set; }
         public string PostPicturePath { get; set; }
         public string PostVideoPath { get; set; }
 
@@ -26,6 +29,6 @@ namespace ShauliBlog.Models
         //[InverseProperty("CommentPost")]
         public virtual ICollection<Comment> PostComments { get; set; }
 
-
+        public virtual Genre Genre { get; set; }
     }
 }

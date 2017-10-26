@@ -56,12 +56,12 @@ namespace ShauliBlog.Controllers
             {
                 // TODO: unremark useraccounts
 
-                ViewBag.TotalPosts = db.Post.Count();
-                ViewBag.TotalComments = db.Comment.Count();
-                // ViewBag.TotalAccounts = db.userAccounts.Count();
-                ViewBag.TotalFans = db.Fan.Count();
-
-                List<Post> posts;
+            ViewBag.TotalPosts = db.Post.Count();
+            ViewBag.TotalComments = db.Comment.Count();                                    
+            ViewBag.TotalAccounts = db.Account.Count();
+            ViewBag.TotalFans = db.Fan.Count();
+            
+            List<Post> posts;
 
                 String query = "select * from posts where {0}";
                 string select = "";
@@ -123,6 +123,7 @@ namespace ShauliBlog.Controllers
         // GET: /Post/Create
         public ActionResult Create()
         {
+            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View();
         }
 
@@ -223,6 +224,7 @@ namespace ShauliBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.PostDate = DateTime.Now;
                 db.Entry(post).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
