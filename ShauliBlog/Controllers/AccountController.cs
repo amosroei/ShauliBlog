@@ -15,33 +15,32 @@ namespace ShauliBlog.Controllers
 
     public class AccountController : Controller
     {
-
+        
         private BlogDBContext db = new BlogDBContext();
         // GET: Account
-        public ActionResult Index()
-        {
-            if (Session["UserId"] == null)
-            {
+        //public ActionResult Index()
+        //{
+        //    // Redirects unlogged user to the login page            
+        //    if (Session["UserId"] == null)
+        //    {
+        //        return RedirectToAction("Login");
+        //    }
+        //    else if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
+        //    {
+        //        using (BlogDBContext db = new BlogDBContext())
+        //        {
+        //            var accounts = from s in db.Account select s;
 
-                //shuld print into a text box--> " Admin only! login before"
-                return RedirectToAction("Login");
-            }
-            else if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
-            {
-                using (BlogDBContext db = new BlogDBContext())
-                {
-                    var accounts = from s in db.Account select s;
+        //            return View(accounts.ToList());
+        //        }
+        //    }
+        //    else
+        //    {
 
-                    return View(accounts.ToList());
-                }
-            }
-            else
-            {
+        //        return RedirectToAction("Index", "Post");
 
-                return RedirectToAction("Index", "Post");
-
-            }
-        }
+        //    }
+        //}
 
 
 

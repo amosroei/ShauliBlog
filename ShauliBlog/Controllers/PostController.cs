@@ -48,21 +48,23 @@ namespace ShauliBlog.Controllers
 
         public ActionResult Index(string SearchTitle, string SearchAuthor)
         {
+            // Redirects unlogged user to the login page            
             if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-            else 
+            else
             {
-                // TODO: unremark useraccounts
 
-            ViewBag.TotalPosts = db.Post.Count();
-            ViewBag.TotalComments = db.Comment.Count();                                    
-            ViewBag.TotalAccounts = db.Account.Count();
-            ViewBag.TotalFans = db.Fan.Count();
-            
-            List<Post> posts;
+                // Set site statistics properties
+                ViewBag.TotalPosts = db.Post.Count();
+                ViewBag.TotalComments = db.Comment.Count();
+                ViewBag.TotalAccounts = db.Account.Count();
+                ViewBag.TotalFans = db.Fan.Count();
 
+                List<Post> posts;
+
+                // generates the search query using the given parameters
                 String query = "select * from posts where {0}";
                 string select = "";
                 string where = "";
@@ -72,7 +74,7 @@ namespace ShauliBlog.Controllers
                     select += "PostTitle,";
                     where += "PostTitle like '%" + SearchTitle + "%'";
                 }
-                if (!String.IsNullOrEmpty(SearchAuthor))// should insert to here
+                if (!String.IsNullOrEmpty(SearchAuthor))
                 {
                     select += "PostAuthor ,";
 
@@ -82,26 +84,22 @@ namespace ShauliBlog.Controllers
                     }
                     where += "PostAuthor like '%" + SearchAuthor + "%'";
                 }
-
-
-
+                
                 if (where == "")
                 {
-                    query = query.Substring(0, query.Length - 10);// empty query
+                    // removes "where" from the end of the query
+                    query = query.Substring(0, query.Length - 10);
                 }
+
                 query = String.Format(query, where);
+
+                // returns the matching posts
                 posts = (List<Post>)db.Post.SqlQuery(query).ToList();
                 return View(posts.ToList());
             }
 
         }
-        // GET: Post
-        //public ActionResult Search()
-        //{
-        //    return View(db.Post.ToList());
-        //}
-
-
+        
         //
         // GET: /Post/Details/5
 
@@ -143,7 +141,7 @@ namespace ShauliBlog.Controllers
                     foreach (string fileName in Request.Files)
                     {
                         HttpPostedFileBase file = Request.Files[fileName];
-                        
+
                         //Save file content goes here
                         fName = file.FileName;
                         if (file != null && file.ContentLength > 0)
@@ -159,7 +157,7 @@ namespace ShauliBlog.Controllers
                             {
                                 post.PostVideoPath = fName;
                             }
-                            
+
                             var originalDirectory = new DirectoryInfo(string.Format("{0}{1}", Server.MapPath(@"\"), targetFolder));
 
                             string pathString = originalDirectory.ToString(); // System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
@@ -249,7 +247,7 @@ namespace ShauliBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Post post = db.Post.Find(id);
-            
+
             if (post == null)
             {
                 return HttpNotFound();
