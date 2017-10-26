@@ -192,6 +192,11 @@ namespace ShauliBlog.Controllers
 
                     db.Post.Add(post);
                     db.SaveChanges();
+
+                    // Run the Apriori algorithm on the data include the new post added to the db
+                    var controller = DependencyResolver.Current.GetService<AprioriAlgorithmController>();
+                    controller.newDataAddedToDb();
+
                     return RedirectToAction("Index");
                 }
             }

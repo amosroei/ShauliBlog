@@ -47,6 +47,8 @@ namespace ShauliBlog.Controllers
             {
                 comment.CommentDate = DateTime.Now;
 
+                comment.Account = db.Account.FirstOrDefault(a => a.UserId == comment.AccountId);
+
                 db.Comment.Add(comment);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
