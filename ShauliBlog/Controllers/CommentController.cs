@@ -12,7 +12,6 @@ namespace ShauliBlog.Controllers
         BlogDBContext db = new BlogDBContext();
         //
         // GET: /Comment/
-
         public ActionResult Index()
         {
             return View();
@@ -21,50 +20,38 @@ namespace ShauliBlog.Controllers
         public void Delete(long id = 0)
         {
             Comment Comment = db.Comment.Find(id);
+
+            // Checks if the user is admin and deletes and comment
             if ((((ShauliBlog.Models.Account)Session["user"]).IsAdmin) &&(Comment != null))
             {
+                // deletes the comment
                 db.Comment.Remove(Comment);
                 db.SaveChanges();
-            }
-            /////// return RedirectToAction("Index", "Post");
+            }            
         }
-
-        //public ActionResult Create([Bind(Include = "CommentID,PostID,CommentTitle,CommentAuthor,CommentAuthorWebsite,CommentText,CommentPost")] Comment comment)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Comment.Add(comment);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(comment);
-        //}
 
         public ActionResult Create(Comment comment)
         {
+            // check if the ccomment is valid
             if (ModelState.IsValid)
             {
+                // sets the comment date to the current date and time
                 comment.CommentDate = DateTime.Now;
 
                 db.Comment.Add(comment);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
             }
-
-            //return View(comment);
+            
+            // sets the comment author as the account
             comment.Account = db.Account.FirstOrDefault(a => a.UserId == comment.AccountId);
-            //comment.CommentPost = db.Post.FirstOrDefault(p => p.PostID == comment.PostId);
 
             return Json(new
             {
                 PostId = comment.PostId,
-                //Post = comment.CommentPost,            
-                //CommentAuthor = comment.CommentAuthor,
                 Account = comment.Account,
                 CommentText = comment.CommentText,
 
-                //Text = comment.CommentText,                                
                 Date = comment.CommentDate.ToString(),
                 id = comment.CommentID
             });

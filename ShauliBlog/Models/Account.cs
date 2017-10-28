@@ -21,7 +21,7 @@ namespace ShauliBlog.Models
         [DataType(DataType.Password)]
         public string ComfirmPassword { get; set; }
 
-        public string Address { get; set; }
+        //public string Address { get; set; }
 
         public string Website { get; set; }
         

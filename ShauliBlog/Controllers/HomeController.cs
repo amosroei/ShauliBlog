@@ -42,14 +42,14 @@ namespace ShauliBlog.Controllers
         {
             // JOIN between Comments and Posts
             var comments = db.Comment.Join(db.Post,
-                        c => c.PostID,
+                        c => c.PostId,
                         p => p.PostID,
                         (c, p) =>
                          new
                          {
                              CommentID = c.CommentID,
                              //Title = c.CommentTitle,
-                             Writer = c.CommentAuthor,
+                             Writer = c.Account.UserName,
                              PostTitle = p.PostTitle
                          });
 

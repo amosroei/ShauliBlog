@@ -80,4 +80,10 @@ function codeLatLng(lat, lng) {
     });
 }
 
+
+function loadAutoComplete() {
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+}
+
 initialize()
