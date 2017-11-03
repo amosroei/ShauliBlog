@@ -250,44 +250,85 @@ namespace ShauliBlog.Controllers
             return View(post);
         }
 
-        //
-        // GET: /Post/Delete/5
-
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(long postId = 0)
         {
-            // returns bad request message if id is null
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            // finds the post by the given id
-            Post post = db.Post.Find(id);
-
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        //
-        // POST: /Post/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            // delete the post only if the user is admin
             bool isAdmin = (Boolean)((ShauliBlog.Models.Account)Session["user"]).IsAdmin;
             if (!isAdmin)
             {
                 return RedirectToAction("Index");
             }
-            Post post = db.Post.Find(id);
-            db.Post.Remove(post);
-            db.SaveChanges();
+            Post post = db.Post.Find(postId);
+            if (post != null)
+            {
+                db.Post.Remove(post);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
+            
+           
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Post post = db.Post.Find(id);
+
+            //if (post == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View();
         }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Post post = db.Post.Find(id);
+
+        //    if (post == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View();
+        //}
+
+        public bool CheckEntityExist(long postId = 0)
+        {
+            bool isExist = false;
+
+            if (postId != null)
+            {
+                // finds the post by the given id
+                Post post = db.Post.Find(postId);
+
+                if (post != null)
+                {
+                    isExist = true;
+                }
+            }
+
+            return isExist;
+        }
+
+        //
+        // POST: /Post/Delete/5
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    bool isAdmin = (Boolean)((ShauliBlog.Models.Account)Session["user"]).IsAdmin;
+        //    if (!isAdmin)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    Post post = db.Post.Find(id);
+        //    db.Post.Remove(post);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         public ActionResult Statistics()
         {

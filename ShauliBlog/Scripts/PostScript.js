@@ -1,4 +1,42 @@
-﻿function ShowCommentBtnClick(idSelector) {
+﻿function DeletePost(postId) {
+    var PostId = { postId: postId };
+
+    $.ajax({
+        type: "GET",
+        url: "/Post/CheckEntityExist/",
+        data: PostId,
+        success: function (isExist) {
+            if (isExist == "False") {
+                alert('הפוסט שביקשת למחוק לא נמצא, מתבצע רענון של הנתונים...');
+                //console.log('checkcheck');
+                location.reload();
+
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Post/Delete/",
+                    data: PostId,
+                    success: function (data) {
+                        location.reload();
+                        //$('#Comment_' + commentId).addClass('collapse');
+                    },
+                    traditional: true,
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(thrownError);
+                    }
+                });
+            }
+            //$('#Comment_' + commentId).addClass('collapse');
+        },
+        traditional: true,
+        error: function (xhr, ajaxOptions, thrownError) {
+            //alert(thrownError);
+        }
+    });
+}
+
+function ShowCommentBtnClick(idSelector) {
 
     $('#CommentsDiv_' + idSelector.split('_')[1]).removeClass('collapse');
 

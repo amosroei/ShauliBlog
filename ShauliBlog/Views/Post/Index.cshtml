@@ -40,10 +40,12 @@
                 @*@if (user != null && ((post.OwnerUser != null && user.Id == post.OwnerUser.Id) || user.IsAdmin))
                     {*@
                 <div class="panel-heading">
-                    <a href="~/Post/Delete/@post.PostID">
+                    @*<a href="~/Post/Delete/@post.PostID">
                         <img src="~/images/x.png" class="postHeaderImg" />
-                    </a>
-                   
+                    </a>*@
+                   <a onclick="DeletePost(@post.PostID)">
+                       <img src="~/images/x.png" class="postHeaderImg" />
+                   </a>
                     <a href="~/Post/Edit/@post.PostID">
                         <img src="~/images/edit.gif" class="postHeaderImg editPostImg" />
                     </a>
