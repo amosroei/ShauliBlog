@@ -24,10 +24,12 @@ namespace Blogi.Controllers
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the genre by the given id
             Genre genre = db.Genre.Find(id);
             if (genre == null)
             {
@@ -62,10 +64,12 @@ namespace Blogi.Controllers
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the genre by the given id
             Genre genre = db.Genre.Find(id);
             if (genre == null)
             {
@@ -93,10 +97,12 @@ namespace Blogi.Controllers
         // GET: genre/Delete/5
         public ActionResult Delete(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the genre by the given id
             Genre genre = db.Genre.Find(id);
             if (genre == null)
             {
@@ -106,9 +112,11 @@ namespace Blogi.Controllers
         }
 
         // POST: Genre/Delete/5
+        // TODO : check if needed
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Genre genre = db.Genre.Find(id);
             db.Genre.Remove(genre);
             db.SaveChanges();

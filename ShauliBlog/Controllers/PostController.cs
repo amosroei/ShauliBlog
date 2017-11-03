@@ -105,10 +105,13 @@ namespace ShauliBlog.Controllers
 
         public ActionResult Details(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            // finds the post by the given id
             Post post = db.Post.Find(id);
             if (post == null)
             {
@@ -121,6 +124,7 @@ namespace ShauliBlog.Controllers
         // GET: /Post/Create
         public ActionResult Create()
         {
+            // Fills the genreitems to be used in the client side
             ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View();
         }
@@ -131,6 +135,7 @@ namespace ShauliBlog.Controllers
         [HttpPost]
         public ActionResult Create(Post post)
         {
+            // Saves the post to the db
             if (ModelState.IsValid)
             {
                 string AttachmentPath = string.Empty;
@@ -158,17 +163,23 @@ namespace ShauliBlog.Controllers
                                 post.PostVideoPath = fName;
                             }
 
+                            //choose a directory to save in : images or videos
                             var originalDirectory = new DirectoryInfo(string.Format("{0}{1}", Server.MapPath(@"\"), targetFolder));
 
-                            string pathString = originalDirectory.ToString(); // System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+                            string pathString = originalDirectory.ToString();
 
+                            // save the name of a file
                             var fileName1 = Path.GetFileName(file.FileName);
 
                             bool isExists = System.IO.Directory.Exists(pathString);
 
+                            // create the directory if not exists
                             if (!isExists)
+                            {
                                 System.IO.Directory.CreateDirectory(pathString);
+                            }
 
+                            // save the file in a relative path
                             AttachmentPath = string.Format("{0}\\{1}", pathString, file.FileName);
                             file.SaveAs(AttachmentPath);
 
@@ -188,6 +199,7 @@ namespace ShauliBlog.Controllers
 
                     post.PostDate = DateTime.Now;
 
+                    // save the post to DB
                     db.Post.Add(post);
                     db.SaveChanges();
 
@@ -206,10 +218,12 @@ namespace ShauliBlog.Controllers
         // GET: /Post/Edit/5
         public ActionResult Edit(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the post by the given id
             Post post = db.Post.Find(id);
             if (post == null)
             {
@@ -228,6 +242,7 @@ namespace ShauliBlog.Controllers
             if (ModelState.IsValid)
             {
                 post.PostDate = DateTime.Now;
+                // sets state to modified
                 db.Entry(post).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -235,17 +250,17 @@ namespace ShauliBlog.Controllers
             return View(post);
         }
 
-
-
         //
         // GET: /Post/Delete/5
 
         public ActionResult Delete(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the post by the given id
             Post post = db.Post.Find(id);
 
             if (post == null)
@@ -262,6 +277,7 @@ namespace ShauliBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // delete the post only if the user is admin
             bool isAdmin = (Boolean)((ShauliBlog.Models.Account)Session["user"]).IsAdmin;
             if (!isAdmin)
             {
@@ -275,11 +291,11 @@ namespace ShauliBlog.Controllers
 
         public ActionResult Statistics()
         {
+            // group by the users posts
             var query = from i in db.Post
                         group i by i.Account.UserName into g
                         select new { UserName = g.Key, c = g.Count() };
-            //group i by i.PostAuthor into g
-            //select new { PostAuthor = g.Key, c = g.Count() };
+           
             return View(query.ToList());
         }
 
@@ -294,6 +310,7 @@ namespace ShauliBlog.Controllers
 
         private bool IsImage(string fileType)
         {
+            // check the image type
             if (fileType == "image/jpg" || fileType == "image/png")
                 return true;
 

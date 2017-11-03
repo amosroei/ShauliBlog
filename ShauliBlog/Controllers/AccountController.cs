@@ -18,29 +18,30 @@ namespace ShauliBlog.Controllers
         
         private BlogDBContext db = new BlogDBContext();
         // GET: Account
-        //public ActionResult Index()
-        //{
-        //    // Redirects unlogged user to the login page            
-        //    if (Session["UserId"] == null)
-        //    {
-        //        return RedirectToAction("Login");
-        //    }
-        //    else if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
-        //    {
-        //        using (BlogDBContext db = new BlogDBContext())
-        //        {
-        //            var accounts = from s in db.Account select s;
+        // account managment - show all users account 
+        public ActionResult Index()
+        {
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
+            {
+                using (BlogDBContext db = new BlogDBContext())
+                {
+                    //select the users account from the DB
+                    var accounts = from s in db.Account select s;
 
-        //            return View(accounts.ToList());
-        //        }
-        //    }
-        //    else
-        //    {
-
-        //        return RedirectToAction("Index", "Post");
-
-        //    }
-        //}
+                    return View(accounts.ToList());
+                }
+            }
+            else
+            {
+                // if the user isnt admin - show the posts page
+                return RedirectToAction("Index", "Post");
+            }
+        }
 
 
 
@@ -80,7 +81,6 @@ namespace ShauliBlog.Controllers
             {
                 if ((user.UserName) == "admin" && (user.Password) == "1234")
                 {
-
                     user.IsAdmin = true;
                     user.UserId = 5;
                     user.UserName = "admin";
@@ -94,12 +94,10 @@ namespace ShauliBlog.Controllers
                 var usr = db.Account.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
                 if (usr != null)
-
                 {
                     Session["UserID"] = usr.UserId.ToString();
                     Session["UserName"] = usr.UserName.ToString();
                     Session["User"] = usr;
-
 
                     //return RedirectToAction("LoggedIn");
                     return RedirectToAction("Index", "Post");

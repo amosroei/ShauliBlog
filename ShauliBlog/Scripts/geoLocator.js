@@ -1,4 +1,21 @@
-﻿function initMap() {
+﻿/**************************************
+    **  Check for Apriori suggestions when hover on Create button in add comment section
+    ***************************************/
+
+$(document).ready(function () {
+    $("input[name='btnCreate']").hover(function () {
+        var txtComment = $("textarea[id='text']").val();
+        if (txtComment.length != 0) {
+            $.post("/AprioriAlgorithm/checkForAprioriSuggestions", { comment: txtComment }, function (data) {
+                $("label[id='AprioriSuggestions']").text(data.comment);
+            });
+        };
+    }, function () {
+
+    });
+});
+
+function initMap() {
     var startMap = { lat: -25.363, lng: 131.044 };
     var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: startMap });
     var marker = new google.maps.Marker({ position: startMap, map: map });
@@ -80,22 +97,7 @@ function codeLatLng(lat, lng) {
     });
 
 
-    /**************************************
-    **  Check for Apriori suggestions when hover on Create button in add comment section
-    ***************************************/
-
-    $(document).ready(function () {
-        $("input[name='btnCreate']").hover(function () {
-            var txtComment = $("textarea[id='text']").val();
-            if (txtComment.length != 0) {
-                $.post("/AprioriAlgorithm/checkForAprioriSuggestions", { comment: txtComment }, function (data) {
-                    $("label[id='AprioriSuggestions']").text(data.comment);
-                });
-            };
-        }, function () {
-
-        });
-    });
+    
 }
 
 initialize()

@@ -7,7 +7,7 @@
     //initialize();
     initializeAutoComplete();
 }
-
+//TODO: check if needed
 function initializeAutoComplete() {
     var input = document.getElementById('pac-input');
 
@@ -19,12 +19,11 @@ function initializeAutoComplete() {
             console.log(place);
             console.log(input);
             //var address = place.formatted_address;
-
-           
         })
     }
 }
 
+   // show all user addresses on map
 function showUserAddresses(addressList) {
     //addressList = "Spain;" + addressList;
     addressStrList = addressList.split(";");

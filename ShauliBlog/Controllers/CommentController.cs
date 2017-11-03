@@ -20,6 +20,8 @@ namespace ShauliBlog.Controllers
 
         public void Delete(long id = 0)
         {
+            // TODO
+            // deletes the comment only if the is admin
             Comment Comment = db.Comment.Find(id);
             if ((((ShauliBlog.Models.Account)Session["user"]).IsAdmin) &&(Comment != null))
             {
