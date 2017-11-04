@@ -13,11 +13,6 @@ namespace ShauliBlog.Controllers
     {
         private BlogDBContext db = new BlogDBContext();
 
-        // GET: Fans
-        //public ActionResult Index()
-        //{
-        //    return View(db.Fan.ToList());
-        //}
 
         public ViewResult Index(string SearchFirst, string SearchLast, string SearchGender)
         {

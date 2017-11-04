@@ -6,36 +6,10 @@
 
 <h2>Create</h2>
 
-@{
-//List<SelectListItem> GenreItems = new List<SelectListItem>();
-//GenreItems.Add(new SelectListItem
-//{
-//    Text = "Tech",
-//    Value = "1",
-//    //Selected = true
-//});
-//GenreItems.Add(new SelectListItem
-//{
-//    Text = "Science",
-//    Value = "2",
-//});
-//GenreItems.Add(new SelectListItem
-//{
-//    Text = "Culture",
-//    Value = "3",
-//});
-
-
-
-//ViewBag.GenresIds = new SelectList(GenreItems, "")
-}
-
-
 @using (Html.BeginForm("Create", "Post", FormMethod.Post,
                               new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @*<form action="/Post/Create/" method="post" enctype="multipart/form-data">*@
     <div class="form-horizontal">
         <h4>Post</h4>
         <hr />
@@ -48,22 +22,6 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.PostAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostAuthor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostAuthor, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.PostAuthorWebsite, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostAuthorWebsite, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostAuthorWebsite, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.LabelFor(model => model.PostText, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -75,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*"-- Select Genre --",*@
+                @*"-- Select Genre --"*@
                 @Html.DropDownListFor(model => model.GenreId, (SelectList)ViewBag.GenreItems, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
@@ -131,9 +89,5 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script src="~/Scripts/PostCreate.js" type="text/javascript"></script>
 
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@
