@@ -230,7 +230,6 @@
     <Content Include="images\sidebar_background.png" />
     <Content Include="images\sidebar_section_background.png" />
     <Content Include="images\x.png" />
-    <Content Include="Scripts\autoComplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

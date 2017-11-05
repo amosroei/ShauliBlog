@@ -13,14 +13,9 @@ namespace ShauliBlog.Controllers
     {
         private BlogDBContext db = new BlogDBContext();
 
-        // GET: Fans
-        //public ActionResult Index()
-        //{
-        //    return View(db.Fan.ToList());
-        //}
-
         public ViewResult Index(string SearchFirst, string SearchLast, string SearchGender)
         {
+            // constructs select query using the given parametes
             List<Fan> fans;
 
             String query = "select * from fans where {0}";
@@ -33,7 +28,7 @@ namespace ShauliBlog.Controllers
                 where += "FirstName like '%" + SearchFirst + "%'";
             }
 
-            if (!String.IsNullOrEmpty(SearchLast))// should insert to here
+            if (!String.IsNullOrEmpty(SearchLast))
             {
                 select += "LastName ,";
 
@@ -106,6 +101,7 @@ namespace ShauliBlog.Controllers
         // GET: Fans/Edit/5
         public ActionResult Edit(int? id)
         {
+            // check if id exists, and edits the fan entity
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -137,6 +133,7 @@ namespace ShauliBlog.Controllers
         // GET: Fans/Delete/5
         public ActionResult Delete(int? id)
         {
+            // check if id exists, and deletes the fan entity
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

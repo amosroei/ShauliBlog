@@ -8,6 +8,7 @@
     initializeAutoComplete();
 }
 
+// initializes google's auto complete component
 function initializeAutoComplete() {
     var input = document.getElementById('pac-input');
 
@@ -17,14 +18,13 @@ function initializeAutoComplete() {
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
             console.log(place);
-            console.log(input);
-            //var address = place.formatted_address;
-
-           
+            console.log(input);           
         })
     }
 }
 
+// gets all users addresses list, formatted as a string.
+// shows address on map
 function showUserAddresses(addressList) {
     //addressList = "Spain;" + addressList;
     addressStrList = addressList.split(";");
