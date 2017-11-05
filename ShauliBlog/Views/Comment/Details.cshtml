@@ -53,12 +53,6 @@
     </dl>
 </div>
 
-@*@foreach (var item in Model.Songs)
-{
-    <br />
-    <b>Song:</b>@Html.DisplayFor(modelItem=>item.SongName)
-}*@
-
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
     @Html.ActionLink("Back to List", "Index")

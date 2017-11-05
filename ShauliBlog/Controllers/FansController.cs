@@ -18,6 +18,7 @@ namespace ShauliBlog.Controllers
             // constructs select query using the given parametes
             List<Fan> fans;
 
+            // generates the search query using the given parameters
             String query = "select * from fans where {0}";
             string select = "";
             string where = "";
@@ -51,9 +52,11 @@ namespace ShauliBlog.Controllers
             }
             if (where == "")
             {
-                query = query.Substring(0, query.Length - 10);// empty query
+                // removes "where" from the end of the query
+                query = query.Substring(0, query.Length - 10);
             }
 
+            // returns the matching fans
             query = String.Format(query, where);
             fans = (List<Fan>)db.Fan.SqlQuery(query).ToList();
             return View(fans.ToList());
@@ -63,10 +66,12 @@ namespace ShauliBlog.Controllers
         // GET: Fans/Details/5
         public ActionResult Details(int? id)
         {
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the fan by the given id
             Fan fan = db.Fan.Find(id);
             if (fan == null)
             {
@@ -101,11 +106,12 @@ namespace ShauliBlog.Controllers
         // GET: Fans/Edit/5
         public ActionResult Edit(int? id)
         {
-            // check if id exists, and edits the fan entity
+            // returns bad request message if id is null
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // finds the fan by the given id
             Fan fan = db.Fan.Find(id);
             if (fan == null)
             {
@@ -123,6 +129,7 @@ namespace ShauliBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+                // sets state to modified
                 db.Entry(fan).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -168,6 +175,7 @@ namespace ShauliBlog.Controllers
 
         public ActionResult Statistics()
         {
+            // group by the genders
             var query = from i in db.Fan
                         group i by i.Gender into g
                         select new { Gender = g.Key, c = g.Count() };

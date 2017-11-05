@@ -48,7 +48,6 @@ namespace ShauliBlog.Controllers
                          new
                          {
                              CommentID = c.CommentID,
-                             //Title = c.CommentTitle,
                              Writer = c.Account.UserName,
                              PostTitle = p.PostTitle
                          });
@@ -59,7 +58,6 @@ namespace ShauliBlog.Controllers
                 co.Add(new CommentsPosts()
                 {
                     CommentID = t.CommentID,
-                    //CommentTitle = t.,
                     Writer = t.Writer,
                     PostTitle = t.PostTitle
                 });

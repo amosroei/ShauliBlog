@@ -15,21 +15,22 @@ namespace ShauliBlog.Controllers
 
     public class AccountController : Controller
     {
-
+        
         private BlogDBContext db = new BlogDBContext();
         // GET: Account
+        // account managment - show all users account 
         public ActionResult Index()
         {
+            // Redirects unlogged user to the login page            
             if (Session["UserId"] == null)
             {
-
-                //shuld print into a text box--> " Admin only! login before"
                 return RedirectToAction("Login");
             }
             else if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
             {
                 using (BlogDBContext db = new BlogDBContext())
                 {
+                    //select the users account from the DB
                     var accounts = from s in db.Account select s;
 
                     return View(accounts.ToList());
@@ -37,9 +38,8 @@ namespace ShauliBlog.Controllers
             }
             else
             {
-
+                // if the user isnt admin - show the posts page
                 return RedirectToAction("Index", "Post");
-
             }
         }
 
@@ -79,9 +79,9 @@ namespace ShauliBlog.Controllers
         {
             using (BlogDBContext db = new BlogDBContext())
             {
+                //admin user
                 if ((user.UserName) == "admin" && (user.Password) == "1234")
                 {
-
                     user.IsAdmin = true;
                     user.UserId = 5;
                     user.UserName = "admin";
@@ -90,19 +90,16 @@ namespace ShauliBlog.Controllers
                     Session["UserName"] = user.UserName.ToString();
                     Session["User"] = user;
                     return RedirectToAction("Index", "Post");
-                    //return RedirectToAction("LoggedIn");
                 }
+                //regular user
                 var usr = db.Account.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
                 if (usr != null)
-
                 {
                     Session["UserID"] = usr.UserId.ToString();
                     Session["UserName"] = usr.UserName.ToString();
                     Session["User"] = usr;
 
-
-                    //return RedirectToAction("LoggedIn");
                     return RedirectToAction("Index", "Post");
                 }
                 else
@@ -113,6 +110,7 @@ namespace ShauliBlog.Controllers
             return View();
         }
 
+        //Login
         public ActionResult LoggedIn()
         {
             if (Session["UserId"] != null)
@@ -126,6 +124,7 @@ namespace ShauliBlog.Controllers
             }
         }
 
+        //delete user
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -211,13 +210,12 @@ namespace ShauliBlog.Controllers
         }
 
         
-
+        //logout
         public ActionResult LogOut()
         {
             Session["UserID"] = null;
             Session.Clear();
             return RedirectToAction("Login");
-            //return RedirectToAction("Home", "Posts");
         }
 
     }

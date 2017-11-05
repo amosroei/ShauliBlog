@@ -13,6 +13,7 @@ namespace ShauliBlog.Models
         public DbSet<Comment> Comment { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<AprioriAlgorithm> Apriori { get; set; }
 
     }
 }
