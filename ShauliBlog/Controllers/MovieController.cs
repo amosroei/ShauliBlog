@@ -31,24 +31,24 @@ namespace ShauliBlog.Controllers
 
             if (!String.IsNullOrEmpty(SearchDirectorName))
             {
-                select += "MovieDirectorName ,";
+                select += "DirectorName ,";
 
                 if (!String.IsNullOrEmpty(where))
                 {
                     where += "and ";
                 }
-                where += "MovieDirectorName like '%" + SearchDirectorName + "%'";
+                where += "DirectorName like '%" + SearchDirectorName + "%'";
             }
 
 
             if (!String.IsNullOrEmpty(SearchYear))
             {
-                select += "MovieReleaseYear ,";
+                select += "ReleaseYear ,";
                 if (!String.IsNullOrEmpty(where))
                 {
                     where += "and ";
                 }
-                where += "MovieReleaseYear like '%" + SearchYear + "%'";
+                where += "ReleaseYear like '%" + SearchYear + "%'";
             }
             if (where == "")
             {
@@ -83,6 +83,8 @@ namespace ShauliBlog.Controllers
         // GET: Movie/Create
         public ActionResult Create()
         {
+            // Fills the genreitems to be used in the client side
+            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View();
         }
 
@@ -177,7 +179,7 @@ namespace ShauliBlog.Controllers
         {
             // group by the year
             var query = from i in db.Movie
-                        group i by i.MovieReleaseYear into g
+                        group i by i.ReleaseYear into g
                         select new { Year = g.Key, c = g.Count() };
             return View(query.ToList());
         }

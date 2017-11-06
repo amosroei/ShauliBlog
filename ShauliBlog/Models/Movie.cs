@@ -12,8 +12,8 @@ namespace ShauliBlog.Models
         [Key]
         public int MovieID { get; set; }
         public string MovieName { get; set; }
-        public string MovieDirectorName{ get; set; }
-        public int MovieReleaseYear{ get; set; }
-        public int MovieGenreId { get; set; }        
+        public string DirectorName{ get; set; }
+        public int ReleaseYear{ get; set; }
+        public int Genre { get; set; }        
     }
 }
