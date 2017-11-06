@@ -198,6 +198,7 @@
     <Compile Include="Models\AprioriAlgorithm.cs" />
     <Compile Include="Models\BlogDBContext.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Fan.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
