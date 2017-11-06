@@ -343,12 +343,16 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Post\Statistics.cshtml" />
     <Content Include="Views\Fans\Statistics.cshtml" />
+    <Content Include="Views\Movie\Create.cshtml" />
+    <Content Include="Views\Movie\Delete.cshtml" />
+    <Content Include="Views\Movie\Details.cshtml" />
+    <Content Include="Views\Movie\Edit.cshtml" />
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Views\AprioriAlgorithm\" />
-    <Folder Include="Views\Genre\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
