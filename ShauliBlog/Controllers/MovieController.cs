@@ -95,6 +95,9 @@ namespace ShauliBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Movie movie)
         {
+            // Fills the genreitems to be used in the client side
+            //ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
+
             if (ModelState.IsValid)
             {
                 db.Movie.Add(movie);
@@ -180,9 +183,15 @@ namespace ShauliBlog.Controllers
         public ActionResult Statistics()
         {
             // group by the year
+            //var query = from i in db.Movie
+            //            group i by i.ReleaseYear into g
+            //            select new { Year = g.Key, c = g.Count() };
+            //return View(query.ToList());
+
+            // group by the genre
             var query = from i in db.Movie
-                        group i by i.ReleaseYear into g
-                        select new { Year = g.Key, c = g.Count() };
+                        group i by i.Genre into g
+                        select new { Genre = g.Key.GenreName, c = g.Count() };
             return View(query.ToList());
         }
     }

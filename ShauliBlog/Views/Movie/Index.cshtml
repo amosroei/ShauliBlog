@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.DirectorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genre)
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseYear)
@@ -75,7 +75,7 @@
 
 <h3> Statistics</h3>
 
-To see fans distribution by gender @Html.ActionLink("click here ", "Statistics")
+To see fans distribution by genre @Html.ActionLink("click here ", "Statistics")
 @*<p class="navbar-text">
         There are a total of <b>@ViewBag.TotalComments Comments</b>
         & <b>@ViewBag.TotalPosts Posts</b>
