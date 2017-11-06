@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AprioriAlgorithmController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\FansController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -343,6 +344,7 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Post\Statistics.cshtml" />
     <Content Include="Views\Fans\Statistics.cshtml" />
+    <Content Include="Views\Movie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
