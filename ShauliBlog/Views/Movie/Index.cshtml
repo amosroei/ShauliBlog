@@ -87,3 +87,87 @@ To see fans distribution by gender @Html.ActionLink("click here ", "Statistics")
     & <b>@ViewBag.TotalAccounts Users</b>
     in this community.
 </p>*@
+@*@model IEnumerable<ShauliBlog.Models.Movie>*@
+@model IEnumerable<ShauliBlog.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="font-size:28px;">Movies</div>
+
+@using (Html.BeginForm())
+{
+
+    <h5>
+        Find By Movie Name:
+    </h5>
+    @Html.TextBox("SearchFirst")
+
+    <h5>
+        Find By Director Name:
+    </h5>
+    @Html.TextBox("SearchDirectorName")
+    <h5>
+        Find By Year:
+    </h5>
+    @Html.TextBox("SearchYear")
+
+    <input type="submit" value="Search" />
+
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieDirectorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieGenreId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReleaseYear)
+        </th>       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieDirectorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieGenreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieReleaseYear)
+        </td>       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MovieID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MovieID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MovieID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<h3> Statistics</h3>
+
+To see fans distribution by gender @Html.ActionLink("click here ", "Statistics")
+@*<p class="navbar-text">
+    There are a total of <b>@ViewBag.TotalComments Comments</b>
+    & <b>@ViewBag.TotalPosts Posts</b>
+    & <b>@ViewBag.TotalFans Fans</b>
+    & <b>@ViewBag.TotalAccounts Users</b>
+    in this community.
+</p>*@

@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AprioriAlgorithmController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\FansController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
