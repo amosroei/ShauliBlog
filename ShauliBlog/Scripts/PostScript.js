@@ -1,33 +1,34 @@
-﻿function DeletePost(postId) {
+﻿// deletes post by the given id
+function DeletePost(postId) {
     var PostId = { postId: postId };
 
+    // checks if the desired post exists
     $.ajax({
         type: "GET",
         url: "/Post/CheckEntityExist/",
         data: PostId,
         success: function (isExist) {
+            // if not, notifies the user
             if (isExist == "False") {
-                alert('הפוסט שביקשת למחוק לא נמצא, מתבצע רענון של הנתונים...');
-                //console.log('checkcheck');
+                alert('הפוסט שביקשת למחוק לא נמצא, מתבצע רענון של הנתונים...');                
                 location.reload();
 
             }
+            // if exists, deletes the post
             else {
                 $.ajax({
                     type: "POST",
                     url: "/Post/Delete/",
                     data: PostId,
                     success: function (data) {
-                        location.reload();
-                        //$('#Comment_' + commentId).addClass('collapse');
+                        location.reload();                       
                     },
                     traditional: true,
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(thrownError);
                     }
                 });
-            }
-            //$('#Comment_' + commentId).addClass('collapse');
+            }            
         },
         traditional: true,
         error: function (xhr, ajaxOptions, thrownError) {
@@ -36,6 +37,8 @@
     });
 }
 
+
+// opens the comments section
 function ShowCommentBtnClick(idSelector) {
 
     $('#CommentsDiv_' + idSelector.split('_')[1]).removeClass('collapse');
@@ -52,6 +55,7 @@ function ShowCommentBtnClick(idSelector) {
     }
 }
 
+// delets the comment
 function DeleteComment(commentId) {
     var CommentId = { id: commentId };
 
@@ -69,6 +73,7 @@ function DeleteComment(commentId) {
     });
 }
 
+// creates a new comment
 function NewComment(postId, userName, userId) {
 
     var div = $('#NewComment_' + postId);              
@@ -81,9 +86,7 @@ function NewComment(postId, userName, userId) {
     }
     else {
         var newComment = {            
-            PostId: postId,
-            //UserId: userId,
-            //CommentAuthor: commentAuthor,
+            PostId: postId,            
             AccountId: userId,        
             CommentText: text,            
         };
@@ -101,6 +104,7 @@ function NewComment(postId, userName, userId) {
     }
 }
 
+// if comment created successfully, updates the html accordingly
 function NewCommentSuccess(data) {
     var date = new Date(data.Date);
     //date.setSeconds(0, 0);

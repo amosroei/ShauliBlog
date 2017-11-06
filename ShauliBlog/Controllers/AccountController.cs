@@ -79,6 +79,7 @@ namespace ShauliBlog.Controllers
         {
             using (BlogDBContext db = new BlogDBContext())
             {
+                //admin user
                 if ((user.UserName) == "admin" && (user.Password) == "1234")
                 {
                     user.IsAdmin = true;
@@ -89,8 +90,8 @@ namespace ShauliBlog.Controllers
                     Session["UserName"] = user.UserName.ToString();
                     Session["User"] = user;
                     return RedirectToAction("Index", "Post");
-                    //return RedirectToAction("LoggedIn");
                 }
+                //regular user
                 var usr = db.Account.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
                 if (usr != null)
@@ -99,7 +100,6 @@ namespace ShauliBlog.Controllers
                     Session["UserName"] = usr.UserName.ToString();
                     Session["User"] = usr;
 
-                    //return RedirectToAction("LoggedIn");
                     return RedirectToAction("Index", "Post");
                 }
                 else
@@ -110,6 +110,7 @@ namespace ShauliBlog.Controllers
             return View();
         }
 
+        //Login
         public ActionResult LoggedIn()
         {
             if (Session["UserId"] != null)
@@ -123,6 +124,7 @@ namespace ShauliBlog.Controllers
             }
         }
 
+        //delete user
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -208,13 +210,12 @@ namespace ShauliBlog.Controllers
         }
 
         
-
+        //logout
         public ActionResult LogOut()
         {
             Session["UserID"] = null;
             Session.Clear();
             return RedirectToAction("Login");
-            //return RedirectToAction("Home", "Posts");
         }
 
     }
