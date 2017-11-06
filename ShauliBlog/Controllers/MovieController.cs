@@ -119,6 +119,8 @@ namespace ShauliBlog.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View(movie);
         }
 

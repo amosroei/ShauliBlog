@@ -47,12 +47,12 @@
     
     @foreach (dynamic d in Model)
     {
-        var gender = d.GetType().GetProperty("Gender").GetValue(d);
+        var year = d.GetType().GetProperty("Year").GetValue(d);
         var count = d.GetType().GetProperty("c").GetValue(d);
         //usersData.Add({ label: ""});
         <tr>
             <td>
-                @gender
+                @year
             </td>
             <td>
                 @count
@@ -62,7 +62,7 @@
     }
 </table>
 
-<div id="genderChart"></div>
+<div id="yearChart"></div>
 <div id="tooltip" class="hidden">
     <p>
         <strong>Important Label Heading</strong>
@@ -73,18 +73,18 @@
 
 <script type="text/javascript">
 //TODO move to different script file
-    var genderData = @Html.Raw(Json.Encode(@Model));
+    var yearData = @Html.Raw(Json.Encode(@Model));
 
     data = [];
     total = 0;
 
-    for (item of genderData) {
+    for (item of yearData) {
         
         total += item["c"]
     }
 
-    for (item of genderData) {
-        data.push({ label: item["Gender"], value: item["c"], percentage: ((item["c"] / total) * 100).toFixed(2) })       
+    for (item of yearData) {
+        data.push({ label: item["Year"], value: item["c"], percentage: ((item["c"] / total) * 100).toFixed(2) })       
     }
 
 
@@ -95,7 +95,7 @@
         color = d3.scale.category20c();     //builtin range of colors
 
 
-    var div = d3.select("#genderChart")
+    var div = d3.select("#yearChart")
         .append("svg:svg")              //create the SVG element inside the <body>
         .data([data])                   //associate our data with the document
         .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
