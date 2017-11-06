@@ -15,7 +15,7 @@ namespace ShauliBlog.Models
         public string LastName { get; set; }
         public string Gender { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime BirthDate { get; set; }
         public int Seniority { get; set; }
     }
