@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ShauliBlog.Controllers.HomeController.PostsMovies>
+
+@{
+    ViewBag.Title = "Join Queries Example 3";
+}
+<h2>@ViewBag.Title</h2>
+<!--This is a query that join between Post and Movie tables-->
+
+<p>This is a query that join between Post and Movie tables</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PostTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<li>@Html.ActionLink("See Join Query between Comments and Posts", "JoinQueryCommentsPosts", "Home")</li>

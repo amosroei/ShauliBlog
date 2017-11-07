@@ -11,5 +11,6 @@ namespace ShauliBlog.Models
         public string GenreName { get; set; }
         [Display(Name = "Posts")]
         public virtual System.Collections.Generic.ICollection<Post> posts { get; set; }
+        public virtual System.Collections.Generic.ICollection<Movie> movies { get; set; }
     }
 }

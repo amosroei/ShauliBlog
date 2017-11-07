@@ -101,5 +101,42 @@ namespace ShauliBlog.Controllers
             }
             return View(po);
         }
+
+        // Class to JOIN between Posts table and Movies table
+        public class PostsMovies
+        {
+            public int GenreID { get; set; }
+            public string PostTitle { get; set; }
+            public string MovieName { get; set; }
+            
+        };
+
+        public ActionResult JoinQueryPostMovie()
+        {
+            // JOIN between Posts and Movies by genre
+            var posts = db.Post.Join(db.Movie,
+                                        p => p.GenreId,
+                                        m => m.Genre,
+                                        (p, m) =>
+                                         new
+                                         {
+                                             MovieName = m.MovieName,
+                                             PostTitle = p.PostTitle
+                                         });
+
+
+            var pm = new List<PostsMovies>();
+            foreach (var t in pm)
+            {
+                pm.Add(new PostsMovies()
+                {
+                    PostTitle = t.PostTitle,
+                    MovieName = t.MovieName
+                });
+            }
+            return View(pm);
+        }
     }
 }
+
+    
