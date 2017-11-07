@@ -53,7 +53,7 @@ namespace ShauliBlog.Controllers
                          });
 
             var co = new List<CommentsPosts>();
-            foreach (var t in co)
+            foreach (var t in comments)
             {
                 co.Add(new CommentsPosts()
                 {
@@ -90,7 +90,7 @@ namespace ShauliBlog.Controllers
 
 
             var po = new List<PostsGenre>();
-            foreach (var t in po)
+            foreach (var t in posts)
             {
                 po.Add(new PostsGenre()
                 {
@@ -105,7 +105,7 @@ namespace ShauliBlog.Controllers
         // Class to JOIN between Posts table and Movies table
         public class PostsMovies
         {
-            public int GenreID { get; set; }
+            //public int GenreID { get; set; }
             public string PostTitle { get; set; }
             public string MovieName { get; set; }
             
@@ -114,10 +114,10 @@ namespace ShauliBlog.Controllers
         public ActionResult JoinQueryPostMovie()
         {
             // JOIN between Posts and Movies by genre
-            var posts = db.Post.Join(db.Movie,
-                                        p => p.GenreId,
-                                        m => m.Genre,
-                                        (p, m) =>
+            var posts = db.Movie.Join(db.Post,
+                                        m => m.Genre.GenreId,
+                                        p => p.Genre.GenreId,                                        
+                                        (m, p) =>
                                          new
                                          {
                                              MovieName = m.MovieName,
@@ -126,7 +126,7 @@ namespace ShauliBlog.Controllers
 
 
             var pm = new List<PostsMovies>();
-            foreach (var t in pm)
+            foreach (var t in posts)
             {
                 pm.Add(new PostsMovies()
                 {
