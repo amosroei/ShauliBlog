@@ -34,7 +34,7 @@ namespace ShauliBlog.Controllers
         public ActionResult Create(Comment comment)
         {
             // check if the ccomment is valid
-            if ((ModelState.IsValid)&& (comment.Account != null))
+            if (ModelState.IsValid)
             {
                 // sets the comment date to the current date and time
                 comment.CommentDate = DateTime.Now;
