@@ -13,53 +13,61 @@ namespace ShauliBlog.Controllers
     {
         private BlogDBContext db = new BlogDBContext();
 
-        public ViewResult Index(string SearchMovieName, string SearchDirectorName, string SearchYear)
+        public ActionResult Index(string SearchMovieName, string SearchDirectorName, string SearchYear)
         {
-            // constructs select query using the given parametes
-            List<Movie> movies;
-
-            // generates the search query using the given parameters
-            String query = "select * from movies where {0}";
-            string select = "";
-            string where = "";
-
-            if (!String.IsNullOrEmpty(SearchMovieName))
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                select += "MovieName,";
-                where += "MovieName like '%" + SearchMovieName + "%'";
+                return RedirectToAction("Login", "Account");
             }
-
-            if (!String.IsNullOrEmpty(SearchDirectorName))
+            else
             {
-                select += "DirectorName ,";
+                // constructs select query using the given parametes
+                List<Movie> movies;
 
-                if (!String.IsNullOrEmpty(where))
+                // generates the search query using the given parameters
+                String query = "select * from movies where {0}";
+                string select = "";
+                string where = "";
+
+                if (!String.IsNullOrEmpty(SearchMovieName))
                 {
-                    where += "and ";
+                    select += "MovieName,";
+                    where += "MovieName like '%" + SearchMovieName + "%'";
                 }
-                where += "DirectorName like '%" + SearchDirectorName + "%'";
-            }
 
-
-            if (!String.IsNullOrEmpty(SearchYear))
-            {
-                select += "ReleaseYear ,";
-                if (!String.IsNullOrEmpty(where))
+                if (!String.IsNullOrEmpty(SearchDirectorName))
                 {
-                    where += "and ";
-                }
-                where += "ReleaseYear like '%" + SearchYear + "%'";
-            }
-            if (where == "")
-            {
-                // removes "where" from the end of the query
-                query = query.Substring(0, query.Length - 10);
-            }
+                    select += "DirectorName ,";
 
-            // returns the matching movies
-            query = String.Format(query, where);
-            movies = (List<Movie>)db.Movie.SqlQuery(query).ToList();
-            return View(movies.ToList());
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "DirectorName like '%" + SearchDirectorName + "%'";
+                }
+
+
+                if (!String.IsNullOrEmpty(SearchYear))
+                {
+                    select += "ReleaseYear ,";
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "ReleaseYear like '%" + SearchYear + "%'";
+                }
+                if (where == "")
+                {
+                    // removes "where" from the end of the query
+                    query = query.Substring(0, query.Length - 10);
+                }
+
+                // returns the matching movies
+                query = String.Format(query, where);
+                movies = (List<Movie>)db.Movie.SqlQuery(query).ToList();
+                return View(movies.ToList());
+            }
         }
 
 
