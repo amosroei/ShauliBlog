@@ -13,55 +13,63 @@ namespace ShauliBlog.Controllers
     {
         private BlogDBContext db = new BlogDBContext();
 
-        public ViewResult Index(string SearchFirst, string SearchLast, string SearchGender)
+        public ActionResult Index(string SearchFirst, string SearchLast, string SearchGender)
         {
-            // constructs select query using the given parametes
-            List<Fan> fans;
 
-            // generates the search query using the given parameters
-            String query = "select * from fans where {0}";
-            string select = "";
-            string where = "";
-
-            if (!String.IsNullOrEmpty(SearchFirst))
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                select += "FirstName,";
-                where += "FirstName like '%" + SearchFirst + "%'";
+                return RedirectToAction("Login", "Account");
             }
-
-            if (!String.IsNullOrEmpty(SearchLast))
+            else
             {
-                select += "LastName ,";
+                // constructs select query using the given parametes
+                List<Fan> fans;
 
-                if (!String.IsNullOrEmpty(where))
+                // generates the search query using the given parameters
+                String query = "select * from fans where {0}";
+                string select = "";
+                string where = "";
+
+                if (!String.IsNullOrEmpty(SearchFirst))
                 {
-                    where += "and ";
+                    select += "FirstName,";
+                    where += "FirstName like '%" + SearchFirst + "%'";
                 }
-                where += "LastName like '%" + SearchLast + "%'";
-            }
 
-
-            if (!String.IsNullOrEmpty(SearchGender))
-            {
-                select += "gender ,";
-                if (!String.IsNullOrEmpty(where))
+                if (!String.IsNullOrEmpty(SearchLast))
                 {
-                    where += "and ";
-                }
-                where += "gender like '%" + SearchGender + "%'";
-            }
-            if (where == "")
-            {
-                // removes "where" from the end of the query
-                query = query.Substring(0, query.Length - 10);
-            }
+                    select += "LastName ,";
 
-            // returns the matching fans
-            query = String.Format(query, where);
-            fans = (List<Fan>)db.Fan.SqlQuery(query).ToList();
-            return View(fans.ToList());
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "LastName like '%" + SearchLast + "%'";
+                }
+
+
+                if (!String.IsNullOrEmpty(SearchGender))
+                {
+                    select += "gender ,";
+                    if (!String.IsNullOrEmpty(where))
+                    {
+                        where += "and ";
+                    }
+                    where += "gender like '%" + SearchGender + "%'";
+                }
+                if (where == "")
+                {
+                    // removes "where" from the end of the query
+                    query = query.Substring(0, query.Length - 10);
+                }
+
+                // returns the matching fans
+                query = String.Format(query, where);
+                fans = (List<Fan>)db.Fan.SqlQuery(query).ToList();
+                return View(fans.ToList());
+            }
         }
-
 
         // GET: Fans/Details/5
         public ActionResult Details(int? id)
