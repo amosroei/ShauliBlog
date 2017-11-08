@@ -59,12 +59,12 @@
             <ul id="transDemo2">
 
                 <li>@Html.ActionLink("Blog", "Index", "Post")</li>
-                <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
+                @*<li>@Html.ActionLink("FanClub", "Index", "Fans")</li>*@
                 <li>@Html.ActionLink("Movies", "Index", "Movie")</li>
 
                 @if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
                 {
-                    <li>@Html.ActionLink("BlogManagment", "Index", "Post")</li>
+                    @*<li>@Html.ActionLink("BlogManagment", "Index", "Post")</li>*@
                     <li>@Html.ActionLink("AccountManagment", "Index", "Account")</li>
                 }
                 <li class="subscribe" id="rss"><a href="#"><img src="~/images/rss.png" />Subscribe via. RSS</a></li>

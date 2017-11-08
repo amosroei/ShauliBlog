@@ -80,17 +80,17 @@ namespace ShauliBlog.Controllers
             using (BlogDBContext db = new BlogDBContext())
             {
                 //admin user
-                if ((user.UserName) == "admin" && (user.Password) == "1234")
-                {
-                    user.IsAdmin = true;
-                    user.UserId = 5;
-                    user.UserName = "admin";
-                    Session["IsAdmin"] = user.IsAdmin.ToString();
-                    Session["UserID"] = user.UserId.ToString();
-                    Session["UserName"] = user.UserName.ToString();
-                    Session["User"] = user;
-                    return RedirectToAction("Index", "Post");
-                }
+                //if ((user.UserName) == "admin" && (user.Password) == "1234")
+                //{
+                //    user.IsAdmin = true;
+                //    user.UserId = 5;
+                //    user.UserName = "admin";
+                //    Session["IsAdmin"] = user.IsAdmin.ToString();
+                //    Session["UserID"] = user.UserId.ToString();
+                //    Session["UserName"] = user.UserName.ToString();
+                //    Session["User"] = user;
+                //    return RedirectToAction("Index", "Post");
+                //}
                 //regular user
                 var usr = db.Account.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
