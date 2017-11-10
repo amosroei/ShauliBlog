@@ -227,6 +227,7 @@
     <Content Include="images\flower.png" />
     <Content Include="images\intro_background.png" />
     <Content Include="images\intro_flower.png" />
+    <Content Include="images\intro_movie.jpeg" />
     <Content Include="images\intro_shauli.png" />
     <Content Include="images\nav_background.png" />
     <Content Include="images\rss.png" />

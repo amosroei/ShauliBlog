@@ -139,12 +139,12 @@ namespace ShauliBlog.Controllers
                             // save the name of a file
                             var fileName1 = Path.GetFileName(file.FileName);
 
-                            bool isExists = System.IO.Directory.Exists(pathString);
+                            bool isExists = Directory.Exists(pathString);
 
                             // create the directory if not exists
                             if (!isExists)
                             {
-                                System.IO.Directory.CreateDirectory(pathString);
+                                Directory.CreateDirectory(pathString);
                             }
 
                             // save the file in a relative path

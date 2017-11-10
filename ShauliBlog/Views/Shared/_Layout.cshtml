@@ -59,7 +59,7 @@
             <ul id="transDemo2">
 
                 <li>@Html.ActionLink("Blog", "Index", "Post")</li>
-                <li>@Html.ActionLink("FanClub", "Index", "Fans")</li>
+                @*<li>@Html.ActionLink("FanClub", "Index", "Fans")</li>*@
                 <li>@Html.ActionLink("Movies", "Index", "Movie")</li>
 
                 @if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
@@ -82,12 +82,7 @@
 
     <section id="intro" class="grad">
         <!-- Introduction -->
-
-        <header>
-            <h2>Do you have questions for me?</h2>
-        </header>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
-        <img alt="Shauli" src="~/images/intro_shauli.png">
+        <img alt="Shauli" src="~/images/intro_movie.jpeg">
     </section>
 
     <img src="~/Post/Index" />
