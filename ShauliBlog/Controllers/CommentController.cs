@@ -1,8 +1,6 @@
 ﻿using ShauliBlog.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ShauliBlog.Controllers
@@ -17,15 +15,17 @@ namespace ShauliBlog.Controllers
             return View();
         }
 
+
+        //KUSHI - why id = 0 ?
         public void Delete(long id = 0)
         {
-            // deletes the comment only if the user is admin
+            // find the comment by id
             Comment Comment = db.Comment.Find(id);
 
-            // Checks if the user is admin and deletes and comment
-            if ((((ShauliBlog.Models.Account)Session["user"]).IsAdmin) &&(Comment != null))
+            //KUSHI - cheack
+            // Checks if the comment belongs to the user and deletes and comment
+            if ((Comment != null) && (((ShauliBlog.Models.Account)Session["user"]).UserId == Comment.AccountId ))
             {
-                // deletes the comment
                 db.Comment.Remove(Comment);
                 db.SaveChanges();
             }            

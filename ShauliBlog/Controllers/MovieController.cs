@@ -152,6 +152,7 @@ namespace ShauliBlog.Controllers
         }
 
         // GET: Movie/Delete/5
+        // delete the specific movie id
         public ActionResult Delete(int? id)
         {
             // check if id exists, and deletes the movie entity
@@ -187,14 +188,9 @@ namespace ShauliBlog.Controllers
             base.Dispose(disposing);
         }
 
+        // group the movies by a genre 
         public ActionResult Statistics()
         {
-            // group by the year
-            //var query = from i in db.Movie
-            //            group i by i.ReleaseYear into g
-            //            select new { Year = g.Key, c = g.Count() };
-            //return View(query.ToList());
-
             // group by the genre
             var query = from i in db.Movie
                         group i by i.Genre into g
