@@ -43,10 +43,6 @@ namespace ShauliBlog.Controllers
             }
         }
 
-
-
-
-
         public ActionResult Register()
         {
             return View();
@@ -75,6 +71,7 @@ namespace ShauliBlog.Controllers
         }
 
         [HttpPost]
+        // Called when the user is trying to login
         public ActionResult Login(Account user)
         {
             using (BlogDBContext db = new BlogDBContext())

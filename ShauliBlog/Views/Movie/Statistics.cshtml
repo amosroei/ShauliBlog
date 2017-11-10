@@ -46,7 +46,7 @@
     </tr>
     
     @foreach (dynamic d in Model)
-    {
+    {        
         var genre = d.GetType().GetProperty("Genre").GetValue(d);
         var count = d.GetType().GetProperty("c").GetValue(d);
         //usersData.Add({ label: ""});

@@ -44,6 +44,7 @@ namespace ShauliBlog.Controllers
                     {
                         where += "and ";
                     }
+                    //KUSHI
                     where += "DirectorName like '%" + SearchDirectorName + "%'";
                 }
 
@@ -101,11 +102,9 @@ namespace ShauliBlog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // call when prase the button of create movie
         public ActionResult Create(Movie movie)
         {
-            // Fills the genreitems to be used in the client side
-            //ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
-
             if (ModelState.IsValid)
             {
                 db.Movie.Add(movie);

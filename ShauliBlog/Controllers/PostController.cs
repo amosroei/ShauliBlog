@@ -23,7 +23,6 @@ namespace ShauliBlog.Controllers
             }
             else
             {
-
                 // Set site statistics properties
                 ViewBag.TotalPosts = db.Post.Count();
                 ViewBag.TotalComments = db.Comment.Count();
