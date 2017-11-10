@@ -84,24 +84,23 @@
                     </div>
 
                     <div id="CommentsDiv_@post.PostID" class="CommentsDiv collapse">
-                        <section class="CommentSection">
-                            <div id="NewComment_@post.PostID" class="NewComment">
-                                <textarea id="text" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
+                        <div id="NewComment_@post.PostID" class="NewComment">
+                            <textarea id="text" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
 
-                                <div class="form-group">
-                                    @Html.Label("Apriori", new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.Label(" ", new { @class = "control-label col-md-2", id = "AprioriSuggestions" })
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input name="btnCreate" type="submit" value="Create" class="btn btn-default" onClick="NewComment(@post.PostID, '@Session["UserName"]', '@Session["UserID"]')" />
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <div>
+                                    <input name="btnCreate" type="submit" value="Create" class="btn btn-default" onClick="NewComment(@post.PostID, '@Session["UserName"]', '@Session["UserID"]')" />
+                                </div>                                
                             </div>
+                            <div class="form-group">
+                                    @Html.Label("Apriori", new { @class = "control-label" })
+                                    <div class="">
+                                        @Html.Label(" ", new { @class = "control-label", id = "AprioriSuggestions" })
+                                    </div>
+                                </div>
+                        </div>
+                        <section class="CommentSection">
+                           
 
                             <div class="CommentsList">
                                 @foreach (var comment in post.PostComments.OrderByDescending(c => c.CommentID))
