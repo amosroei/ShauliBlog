@@ -44,7 +44,7 @@ namespace ShauliBlog.Controllers
                     {
                         where += "and ";
                     }
-                    //KUSHI
+                    
                     where += "DirectorName like '%" + SearchDirectorName + "%'";
                 }
 
