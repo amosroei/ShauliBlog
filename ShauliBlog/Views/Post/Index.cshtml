@@ -105,7 +105,7 @@
                             <div class="CommentsList">
                                 @foreach (var comment in post.PostComments.OrderByDescending(c => c.CommentID))
                                 {
-                            <p id="Comment_@comment.">
+                            <p id="Comment_@comment.CommentID">
                                 @*@if (user != null && ((comment.User != null && user.Id == comment.User.Id) || user.IsAdmin))
                         {*@
                                 <a onclick="DeleteComment(@comment.CommentID)" style="cursor:pointer;">

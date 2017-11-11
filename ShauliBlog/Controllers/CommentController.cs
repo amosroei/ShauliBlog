@@ -15,20 +15,23 @@ namespace ShauliBlog.Controllers
             return View();
         }
 
-
-        //KUSHI - why id = 0 ?
-        public void Delete(long id = 0)
+        
+        public void Delete(long ?id)
         {
             // find the comment by id
-            Comment Comment = db.Comment.Find(id);
-
-            //KUSHI - cheack
-            // Checks if the comment belongs to the user and deletes and comment
-            if ((Comment != null) && (((ShauliBlog.Models.Account)Session["user"]).UserId == Comment.AccountId ))
+            if (id != null)
             {
-                db.Comment.Remove(Comment);
-                db.SaveChanges();
-            }            
+                Comment Comment = db.Comment.Find(id);
+                
+                // Checks if the comment belongs to the user and deletes and comment
+                if ((Comment != null) &&
+                    (((ShauliBlog.Models.Account)Session["user"]).IsAdmin ||
+                    (((ShauliBlog.Models.Account)Session["user"]).UserId == Comment.AccountId)))
+                {
+                    db.Comment.Remove(Comment);
+                    db.SaveChanges();
+                }
+            }         
         }
 
         public ActionResult Create(Comment comment)

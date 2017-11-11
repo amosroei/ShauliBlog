@@ -67,8 +67,7 @@ function convertLatLongToCity(lat, lng) {
                 }            
             }
         } 
-
-        getUserWeather(userCity.short_name);
+        getUserWeather(userCity.long_name);
     });
 
 
@@ -76,20 +75,41 @@ function convertLatLongToCity(lat, lng) {
 }
 
 // gets user's location, call openweather api and gets the weather in his location
-function getUserWeather(userLocation) {
-    var trimmedStr = userLocation.replace(/\s+/g, '').replace('-', '');
-    //trimmedStr = 'Eilat';
-    //trimmedStr = 'RishonLetzion';
+//function getUserWeather(userLocation) {
+//    var trimmedStr = userLocation.replace(/\s+/g, '').replace('-', '');
+//    //trimmedStr = 'Eilat';
+//    //trimmedStr = 'RishonLetzion';
 
-    var appid = "2e9a3b3f3b7a98e0442e3a85875a2481";
-    $.get("http://api.openweathermap.org/data/2.5/weather?q=" + trimmedStr + "&units=metric&APPID=" + appid + "&units=imperial", function (response) {
+//    var appid = "2e9a3b3f3b7a98e0442e3a85875a2481";
+//    $.get("http://api.openweathermap.org/data/2.5/weather?q=" + trimmedStr + "&units=metric&APPID=" + appid + "&units=imperial", function (response) {
+//        //response
+//        console.log(response);
+
+//        // sets the relevant html controls
+//        $("#name").text(response.name);
+//        $("#temp").text(response.main.temp);
+//        $("#humidity").text(response.main.humidity);
+//    })
+//}
+
+function getUserWeather(userLocation) {
+    var worldWeatherAppId = "e31e72c85ae94d9991b105529171011";
+    var formattedUserLocation = userLocation.replace(" ", "+");
+    var url = "http://api.worldweatheronline.com/premium/v1/weather.ashx?key=" + worldWeatherAppId +
+        "&q=" + userLocation + "&format=json";
+
+    $.get(url, function (response) {
         //response
         console.log(response);
 
+        var weatherObj = response.data.current_condition[0];
+        var temprature = weatherObj.temp_C;
+        var humidity = weatherObj.humidity;
+
         // sets the relevant html controls
-        $("#name").text(response.name);
-        $("#temp").text(response.main.temp);
-        $("#humidity").text(response.main.humidity);
+        $("#name").text(userLocation);
+        $("#temp").text(temprature);
+        $("#humidity").text(humidity);
     })
 }
 
