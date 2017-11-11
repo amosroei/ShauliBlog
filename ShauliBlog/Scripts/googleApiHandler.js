@@ -32,24 +32,26 @@ function showUserAddresses(addressList) {
     var map;
     var bounds = new google.maps.LatLngBounds();
     for (address of addressStrList) {
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+        if (address != "") {            
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
 
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();                
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
 
-                if (map == null) {
-                    var mapOptions = { center: new google.maps.LatLng(latitude, longitude), zoom: 8, mapTypeId: google.maps.MapTypeId.ROADMAP };
-                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    if (map == null) {
+                        var mapOptions = { center: new google.maps.LatLng(latitude, longitude), zoom: 8, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    }
+
+                    var marker = new google.maps.Marker({ position: new google.maps.LatLng(latitude, longitude), map: map });
+
+                    bounds.extend(marker.getPosition());
+                    map.fitBounds(bounds);
+                } else {
+                    console.log('invalid address: ' + address);
                 }
-
-                var marker = new google.maps.Marker({ position: new google.maps.LatLng(latitude, longitude), map: map });
-
-                bounds.extend(marker.getPosition());
-                map.fitBounds(bounds);
-            } else {
-                alert("Request failed.")
-            }
-        });
+            });
+        }
     }
 }

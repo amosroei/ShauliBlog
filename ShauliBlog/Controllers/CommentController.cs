@@ -16,7 +16,7 @@ namespace ShauliBlog.Controllers
         }
 
         
-        public void Delete(long ?id)
+        public ActionResult Delete(long ?id)
         {
             // find the comment by id
             if (id != null)
@@ -30,8 +30,12 @@ namespace ShauliBlog.Controllers
                 {
                     db.Comment.Remove(Comment);
                     db.SaveChanges();
+
+                    return Json(new { success = true });
                 }
-            }         
+            }
+
+            return Json(new { success = false});
         }
 
         public ActionResult Create(Comment comment)
