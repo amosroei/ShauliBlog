@@ -63,13 +63,12 @@ function DeleteComment(commentId) {
         type: "POST",
         url: "/Comment/Delete/",
         data: CommentId,
-        success: function (data) {
-            $('#Comment_' + commentId).addClass('collapse');
+        success: function (response) {
+            if (response.success) {
+                $('#Comment_' + commentId).addClass('collapse');
+            }
         },
-        traditional: true,
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(thrownError);
-        }
+        traditional: true      
     });
 }
 

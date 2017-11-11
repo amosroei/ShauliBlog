@@ -44,6 +44,7 @@ namespace ShauliBlog.Controllers
             foreach (string oneWord in words)
             {
                 var wordContained = wordsFromDb.Where(p => p.words.Contains("|" + oneWord + "|"));
+                
                 if (wordContained.Count() > 0)
                 {
                     List<AprioriAlgorithm> aa = wordContained.ToList();
@@ -149,7 +150,9 @@ namespace ShauliBlog.Controllers
                 }
 
 
-                double minSupportPct = 0.03; // minimum pct of transactions for an item-set to be 'frequent'
+                // double minSupportPct = 0.03; // minimum pct of transactions for an item-set to be 'frequent'
+                double minSupportPct = 0.4; // minimum pct of transactions for an item-set to be 'frequent'
+
                 int minItemSetLength = 2;
                 int maxItemSetLength = 10;
 
@@ -177,8 +180,8 @@ namespace ShauliBlog.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.ReadLine();
+                //Console.WriteLine(ex.Message);
+                //Console.ReadLine();
             }
         }
 
