@@ -27,7 +27,8 @@ namespace ShauliBlog.Controllers
                 ViewBag.TotalPosts = db.Post.Count();
                 ViewBag.TotalComments = db.Comment.Count();
                 ViewBag.TotalAccounts = db.Account.Count();
-                ViewBag.TotalFans = db.Fan.Count();
+                ViewBag.TotalMovies = db.Movie.Count();
+                //ViewBag.TotalFans = db.Fan.Count();
 
                 List<Post> posts;
 
