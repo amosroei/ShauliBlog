@@ -53,8 +53,8 @@ namespace ShauliBlog.Controllers
             // sets the comment author as the account
             comment.Account = db.Account.FirstOrDefault(a => a.UserId == comment.AccountId);
 
-            var controller = DependencyResolver.Current.GetService<AprioriAlgorithmController>();
-            controller.newDataAddedToDb();
+            //var controller = DependencyResolver.Current.GetService<AprioriAlgorithmController>();
+            //controller.newDataAddedToDb();
 
             return Json(new
             {

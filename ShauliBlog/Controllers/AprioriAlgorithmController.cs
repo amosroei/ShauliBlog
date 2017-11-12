@@ -49,9 +49,17 @@ namespace ShauliBlog.Controllers
                 {
                     List<AprioriAlgorithm> aa = wordContained.ToList();
                     foreach (AprioriAlgorithm a in aa)
-                        data += a.words.ToString();
-                    data = data.Replace("||", "|");
-                    data = data.Replace(oneWord + "|", "");
+                    {
+                        string formattedSuggestion = a.words.ToString();
+                        formattedSuggestion = formattedSuggestion.Remove(0, 1);
+                        formattedSuggestion = formattedSuggestion.Remove(formattedSuggestion.Length - 1, 1);
+                        formattedSuggestion = formattedSuggestion.Replace("|", ", ");
+                        formattedSuggestion = "|" + formattedSuggestion + "| "; 
+                        data += formattedSuggestion;
+
+                    }
+                    //data = data.Replace("||", "|");
+                    //data = data.Replace(oneWord + "|", "");
                 }
             }
             if (String.IsNullOrEmpty(data))
@@ -151,7 +159,7 @@ namespace ShauliBlog.Controllers
 
 
                 // double minSupportPct = 0.03; // minimum pct of transactions for an item-set to be 'frequent'
-                double minSupportPct = 0.4; // minimum pct of transactions for an item-set to be 'frequent'
+                double minSupportPct = 0.125; // minimum pct of transactions for an item-set to be 'frequent'
 
                 int minItemSetLength = 2;
                 int maxItemSetLength = 10;
@@ -171,6 +179,11 @@ namespace ShauliBlog.Controllers
                         int v = frequentItemSets[i].data[j];
                         itemSet.Append(rawItems[v]);
                         itemSet.Append("|");
+
+                        //foreach (var item in rawTransactions[v].ToList())
+                        //{
+                        //    itemSet.Append(item);
+                        //}
                     }
                     AprioriAlgorithm aprioriAlgorithm = new AprioriAlgorithm() { words = itemSet.ToString() };
                     db.Apriori.Add(aprioriAlgorithm);
