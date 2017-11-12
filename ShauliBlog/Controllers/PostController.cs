@@ -29,42 +29,17 @@ namespace ShauliBlog.Controllers
                 ViewBag.TotalAccounts = db.Account.Count();
                 ViewBag.TotalMovies = db.Movie.Count();
 
-                List<Post> posts;
-
-                // generates the search query using the given parameters
-                String query = "select * from posts where {0}";
-                string select = "";
-                string where = "";
-
-                if (!String.IsNullOrEmpty(SearchTitle))
+                if ((SearchAuthor != null && SearchAuthor != string.Empty) ||
+                    (SearchTitle != null && SearchTitle != string.Empty))
                 {
-                    select += "PostTitle,";
-                    where += "PostTitle like '%" + SearchTitle + "%'";
+                    return View(db.Post.Where(p => p.Account.UserName.Contains(SearchAuthor) &&
+                    p.PostTitle.Contains(SearchTitle)).ToList());
                 }
-                if (!String.IsNullOrEmpty(SearchAuthor))
+                else
                 {
-                    select += "PostAuthor ,";
-
-                    if (!String.IsNullOrEmpty(where))
-                    {
-                        where += "and ";
-                    }
-                    where += "PostAuthor like '%" + SearchAuthor + "%'";
-                }
-                
-                if (where == "")
-                {
-                    // removes "where" from the end of the query
-                    query = query.Substring(0, query.Length - 10);
-                }
-
-                query = String.Format(query, where);
-
-                // returns the matching posts
-                posts = (List<Post>)db.Post.SqlQuery(query).ToList();
-                return View(posts.ToList());
+                    return View(db.Post.ToList());
+                }                
             }
-
         }
         
         //

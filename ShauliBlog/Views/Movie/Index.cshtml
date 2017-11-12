@@ -19,13 +19,17 @@
         Find By Director Name:
     </h5>
     @Html.TextBox("SearchDirectorName")
-    <h5>
-        Find By Year:
-    </h5>
-    @Html.TextBox("SearchYear")
+    
+    // check if the current user is admin
+    if (((ShauliBlog.Models.Account)Session["user"]).IsAdmin)
+    {
+        <h5>
+            Find By Year:
+        </h5>
+        @Html.TextBox("SearchYear")
+    }
 
     <input type="submit" value="Search" />
-
 }
 
 <p>
