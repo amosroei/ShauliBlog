@@ -118,6 +118,7 @@ namespace ShauliBlog.Controllers
         // GET: Movie/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             // returns bad request message if id is null
             if (id == null)
             {
@@ -130,7 +131,6 @@ namespace ShauliBlog.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
             return View(movie);
         }
 
