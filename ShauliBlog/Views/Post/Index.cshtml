@@ -4,8 +4,6 @@
 @{
     ViewBag.Title = "Search";
     ViewBag.ShowFilter = true;
-    
-    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm())
@@ -44,10 +42,9 @@
                         string accountWebsite = "", userName = "";
                         if (post.Account != null)
                         {
-                            accountWebsite = post.Account != null ? "http://" + post.Account.Website : "";
+                            accountWebsite = post.Account != null ? post.Account.Website : "";
                             userName = post.Account.UserName;
                         }
-
                     }
                     
                     <p class="PostTitle">
@@ -147,7 +144,6 @@ To see how many posts each user have @Html.ActionLink("click here ", "Statistics
 <p class="navbar-text">
     There are a total of <b>@ViewBag.TotalComments Comments</b>
     & <b>@ViewBag.TotalPosts Posts</b>
-    @*& <b>@ViewBag.TotalFans Fans</b>*@
     & <b>@ViewBag.TotalMovies Movies</b>
     & <b>@ViewBag.TotalAccounts Users</b>
     in this community.

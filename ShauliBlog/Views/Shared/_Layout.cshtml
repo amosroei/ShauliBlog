@@ -58,7 +58,6 @@
             <!-- Navigation -->
             <ul id="transDemo2">                
                 <li>@Html.ActionLink("Blog", "Index", "Post")</li>
-                @*<li>@Html.ActionLink("FanClub", "Index", "Fans")</li>*@
                 <li>@Html.ActionLink("Movies", "Index", "Movie")</li>
 
                 @if (((ShauliBlog.Models.Account)Session["User"]).IsAdmin)
@@ -82,8 +81,6 @@
         <!-- Introduction -->
         <img alt="Shauli" src="~/images/intro_movie.jpeg">
     </section>
-
-    @*<img src="~/Post/Index" />*@
 
     <div id="content">
         <div id="mainContent">

@@ -187,7 +187,6 @@
     <Compile Include="Controllers\AprioriAlgorithmController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
-    <Compile Include="Controllers\FansController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -200,7 +199,6 @@
     <Compile Include="Models\BlogDBContext.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Movie.cs" />
-    <Compile Include="Models\Fan.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -321,11 +319,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Fans\Create.cshtml" />
-    <Content Include="Views\Fans\Delete.cshtml" />
-    <Content Include="Views\Fans\Details.cshtml" />
-    <Content Include="Views\Fans\Edit.cshtml" />
-    <Content Include="Views\Fans\Index.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Post\Details.cshtml" />
@@ -342,7 +335,6 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Post\Statistics.cshtml" />
-    <Content Include="Views\Fans\Statistics.cshtml" />
     <Content Include="Views\Movie\Create.cshtml" />
     <Content Include="Views\Movie\Delete.cshtml" />
     <Content Include="Views\Movie\Details.cshtml" />

@@ -14,7 +14,6 @@ namespace ShauliBlog.Models
         public string MovieName { get; set; }
         public string DirectorName{ get; set; }
         public int ReleaseYear{ get; set; }
-
         [Display(Name = "Genre")]
         public int GenreId { get; set; }
         public virtual Genre Genre { get; set; }
