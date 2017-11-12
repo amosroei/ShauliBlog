@@ -85,7 +85,7 @@
 
                     <div id="CommentsDiv_@post.PostID" class="CommentsDiv collapse">
                         <div id="NewComment_@post.PostID" class="NewComment">
-                            <textarea id="text" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
+                            <textarea name="textareaField" id="text_@post.PostID" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
 
                             <div class="form-group">
                                 <div>
@@ -95,7 +95,7 @@
                             <div class="form-group">
                                     @Html.Label("Apriori", new { @class = "control-label" })
                                     <div class="">
-                                        @Html.Label(" ", new { @class = "control-label", id = "AprioriSuggestions" })
+                                        @Html.Label(" ", new { @class = "control-label", id = "AprioriSuggestions_"+post.PostID })
                                     </div>
                                 </div>
                         </div>

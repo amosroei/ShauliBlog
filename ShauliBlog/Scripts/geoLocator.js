@@ -1,20 +1,4 @@
-﻿/**************************************
-    **  Check for Apriori suggestions when hover on Create button in add comment section
-    ***************************************/
-
-$(document).ready(function () {
-    $("input[name='btnCreate']").hover(function () {
-        var txtComment = $("textarea[id='text']").val();
-        if (txtComment.length != 0) {
-            $.post("/AprioriAlgorithm/checkForAprioriSuggestions", { comment: txtComment }, function (data) {
-                $("label[id='AprioriSuggestions']").text(data.comment);
-            });
-        };
-    }, function () {
-
-    });
-});
-
+﻿
 function initMap() {
     // initializes google map component
     var startMap = { lat: -25.363, lng: 131.044 };

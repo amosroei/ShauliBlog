@@ -128,3 +128,41 @@ function NewCommentSuccess(data) {
 function NewCommentError(xhr, ajaxOptions, thrownError) {
     alert(thrownError);
 }
+
+/**************************************
+    **  Checks for Apriori suggestions on space pressed inside comment text
+    ***************************************/
+
+$(document).ready(function () {
+    // select all textarea controls
+    var textareaControls = $("[name='textareaField']");
+
+    for (var i = 0; i < textareaControls.length; i++) {
+
+        //current textarea element
+        var elem = textareaControls[i];
+
+        // add keypress listener to current element
+        elem.addEventListener("keypress", function (value) {
+
+            // saves this is variable
+            var currControl = this;
+
+            var controlIndex = currControl.id.split("_").pop();
+
+            // checks if current key is space
+            if (value.which == 32) {
+                var txtComment = $("#text_" + controlIndex).val();
+
+                // checks if comment text is not empty
+                if (txtComment.length != 0) {
+                    $.post("/AprioriAlgorithm/checkForAprioriSuggestions", { comment: txtComment }, function (data) {
+
+                        // sets the matching apriorisuggestions control to the returned value
+                        $('#AprioriSuggestions_' + controlIndex).text(data.comment);
+                    });
+                };
+            }
+        });
+    }
+});
