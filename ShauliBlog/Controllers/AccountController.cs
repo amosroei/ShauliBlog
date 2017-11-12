@@ -123,10 +123,12 @@ namespace ShauliBlog.Controllers
 
         //delete user
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
+        {           
+            // if id is null, or trying to delete the logged user, prevent action
+            if (id == null || ((ShauliBlog.Models.Account)Session["user"]).UserId == id)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Account");
             }
             using (BlogDBContext db = new BlogDBContext())
             {
@@ -136,7 +138,7 @@ namespace ShauliBlog.Controllers
                     return HttpNotFound();
                 }
                 return View(user);
-            }
+            }            
         }
 
         // POST: Posts/Delete/5

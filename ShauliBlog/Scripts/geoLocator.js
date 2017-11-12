@@ -41,7 +41,7 @@ function getPositionSuccessFunction(position) {
 }
 
 function getPositionErrorFunction() {
-    alert("Geocoder failed");
+    //alert("Geocoder failed");
 }
 
 function convertLatLongToCity(lat, lng) {
