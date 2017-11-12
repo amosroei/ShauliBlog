@@ -82,7 +82,7 @@
 
                     <div id="CommentsDiv_@post.PostID" class="CommentsDiv collapse">
                         <div id="NewComment_@post.PostID" class="NewComment">
-                            <textarea name="textareaField" id="text_@post.PostID" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
+                            <textarea maxlength="30" name="textareaField" id="text_@post.PostID" class="CommentText" placeholder="Write your comment here..." rows="3" maxlength="255"></textarea>
 
                             <div class="form-group">
                                 <div>
@@ -96,28 +96,18 @@
                                     </div>
                                 </div>
                         </div>
-                        <section class="CommentSection">
-                           
-
+                        <section class="CommentSection">                           
                             <div class="CommentsList">
                                 @foreach (var comment in post.PostComments.OrderByDescending(c => c.CommentID))
                                 {
-                            <p id="Comment_@comment.CommentID">
-                                @*@if (user != null && ((comment.User != null && user.Id == comment.User.Id) || user.IsAdmin))
-                        {*@
+                            <p id="Comment_@comment.CommentID">                              
                                 <a onclick="DeleteComment(@comment.CommentID)" style="cursor:pointer;">
                                     <img src="~/images/x.png" class="postHeaderImg" />
-                                </a>
-                                @*  }*@
-                                @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.User != null ? comment.User.Username : comment.Name)</b>*@
-                                @*author : @comment.CommentAuthor*@
-                                @*author : @comment.Account.UserName*@
-                                @*<b>@string.Format("{0} - {1}", comment.CommentID, comment.CommentAuthor)</b>*@
+                                </a>                                
                                 <b>@string.Format("{0} - {1}", comment.CommentDate.ToString("g"), comment.Account.UserName)</b>                                
                                 <br>
                                 @comment.CommentText
                             </p>
-
                                 }
                             </div>
                         </section>

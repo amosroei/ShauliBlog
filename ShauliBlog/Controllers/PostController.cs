@@ -47,28 +47,44 @@ namespace ShauliBlog.Controllers
 
         public ActionResult Details(int? id)
         {
-            // returns bad request message if id is null
-            if (id == null)
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Account");
             }
+            else
+            {
+                // returns bad request message if id is null
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-            // finds the post by the given id
-            Post post = db.Post.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
+                // finds the post by the given id
+                Post post = db.Post.Find(id);
+                if (post == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(post);
             }
-            return View(post);
         }
 
         //
         // GET: /Post/Create
         public ActionResult Create()
         {
-            // Fills the genreitems to be used in the client side
-            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
-            return View();
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                // Fills the genreitems to be used in the client side
+                ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
+                return View();
+            }
         }
 
         //
@@ -160,20 +176,28 @@ namespace ShauliBlog.Controllers
         // GET: /Post/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
 
-            // returns bad request message if id is null
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // returns bad request message if id is null
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                // finds the post by the given id
+                Post post = db.Post.Find(id);
+                if (post == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(post);
             }
-            // finds the post by the given id
-            Post post = db.Post.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
         }
 
         //

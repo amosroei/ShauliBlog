@@ -54,26 +54,41 @@ namespace ShauliBlog.Controllers
         // GET: Movie/Details/5
         public ActionResult Details(int? id)
         {
-            // returns bad request message if id is null
-            if (id == null)
+            // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Account");
             }
-            // finds the movie by the given id
-            Movie movie = db.Movie.Find(id);
-            if (movie == null)
+            else
             {
-                return HttpNotFound();
+                // returns bad request message if id is null
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                // finds the movie by the given id
+                Movie movie = db.Movie.Find(id);
+                if (movie == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(movie);
             }
-            return View(movie);
         }
 
         // GET: Movie/Create
         public ActionResult Create()
-        {
-            // Fills the genreitems to be used in the client side
-            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
-            return View();
+        { // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                // Fills the genreitems to be used in the client side
+                ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
+                return View();
+            }
         }
 
         // POST: Movie/Create
@@ -96,21 +111,28 @@ namespace ShauliBlog.Controllers
 
         // GET: Movie/Edit/5
         public ActionResult Edit(int? id)
-        {
-            ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
-            // returns bad request message if id is null
-            if (id == null)
+        { // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Account");
             }
-            // finds the movie by the given id
-            Movie movie = db.Movie.Find(id);
-            if (movie == null)
+            else
             {
-                return HttpNotFound();
-            }
+                ViewBag.GenreItems = new SelectList(db.Genre, "GenreId", "GenreName");
+                // returns bad request message if id is null
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                // finds the movie by the given id
+                Movie movie = db.Movie.Find(id);
+                if (movie == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return View(movie);
+                return View(movie);
+            }
         }
 
         // POST: Movie/Edit/5
@@ -133,18 +155,25 @@ namespace ShauliBlog.Controllers
         // GET: Movie/Delete/5
         // delete the specific movie id
         public ActionResult Delete(int? id)
-        {
-            // check if id exists, and deletes the movie entity
-            if (id == null)
+        { // Redirects unlogged user to the login page            
+            if (Session["UserId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Account");
             }
-            Movie movie = db.Movie.Find(id);
-            if (movie == null)
+            else
             {
-                return HttpNotFound();
+                // check if id exists, and deletes the movie entity
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Movie movie = db.Movie.Find(id);
+                if (movie == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(movie);
             }
-            return View(movie);
         }
 
         // POST: Movie/Delete/5
