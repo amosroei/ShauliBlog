@@ -129,10 +129,8 @@ function NewCommentError(xhr, ajaxOptions, thrownError) {
     alert(thrownError);
 }
 
-/**************************************
-    **  Checks for Apriori suggestions on space pressed inside comment text
-    ***************************************/
 
+// Checks for Apriori suggestions on space pressed inside comment text
 $(document).ready(function () {
     // select all textarea controls
     var textareaControls = $("[name='textareaField']");
