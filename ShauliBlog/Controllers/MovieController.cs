@@ -22,52 +22,31 @@ namespace ShauliBlog.Controllers
             }
             else
             {
-                // constructs select query using the given parametes
-                List<Movie> movies;
-
-                // generates the search query using the given parameters
-                String query = "select * from movies where {0}";
-                string select = "";
-                string where = "";
-
-                if (!String.IsNullOrEmpty(SearchMovieName))
+                // checks if any search fields were filled
+                if ((SearchMovieName != null && SearchMovieName != string.Empty) ||
+                    (SearchDirectorName != null && SearchDirectorName != string.Empty) ||
+                    (SearchYear != null && SearchYear != string.Empty))
                 {
-                    select += "MovieName,";
-                    where += "MovieName like '%" + SearchMovieName + "%'";
-                }
+                    // first, filters by movie name and director name
+                    List<Movie> filteredMovies = db.Movie.Where(m => m.MovieName.Contains(SearchMovieName) &&
+                    m.DirectorName.Contains(SearchDirectorName)).ToList();
 
-                if (!String.IsNullOrEmpty(SearchDirectorName))
-                {
-                    select += "DirectorName ,";
+                    int filterYear;
 
-                    if (!String.IsNullOrEmpty(where))
+                    // try to convert search year to integer and filtered the movies
+                    if (SearchYear != string.Empty && int.TryParse(SearchYear, out filterYear))
                     {
-                        where += "and ";
+                        filteredMovies = filteredMovies.Where(m => m.ReleaseYear == filterYear).ToList();
                     }
-                    
-                    where += "DirectorName like '%" + SearchDirectorName + "%'";
+
+                    return View(filteredMovies);
                 }
 
-
-                if (!String.IsNullOrEmpty(SearchYear))
+                // if not, return all movies in db
+                else
                 {
-                    select += "ReleaseYear ,";
-                    if (!String.IsNullOrEmpty(where))
-                    {
-                        where += "and ";
-                    }
-                    where += "ReleaseYear like '%" + SearchYear + "%'";
-                }
-                if (where == "")
-                {
-                    // removes "where" from the end of the query
-                    query = query.Substring(0, query.Length - 10);
-                }
-
-                // returns the matching movies
-                query = String.Format(query, where);
-                movies = (List<Movie>)db.Movie.SqlQuery(query).ToList();
-                return View(movies.ToList());
+                    return View(db.Movie.ToList());
+                }                
             }
         }
 
